@@ -20,9 +20,11 @@ public class Main {
         }
 
 
-        Gasolineras g = new Gasolineras(50, 321) //50 gasolineras
+        Gasolineras g = new Gasolineras(50, 321); //50 gasolineras
 
-        for()
+        for(int i = 0; i < g.size(); i++) {
+            System.out.println("Gasolinera " + i + " " + g.get(i).getCoordX() + g.get(i).getCoordY() + " tiene " + g.get(i).getPeticiones() + " peticiones");
+        }
 
 
 
