@@ -1,6 +1,13 @@
 import IA.Gasolina.CentrosDistribucion;
 import IA.Gasolina.Distribucion;
 import IA.Gasolina.Gasolineras;
+import IA.Gasolina.Gasolinera;
+
+import aima.search.informed.HillClimbingSearch;
+import aima.search.informed.SimulatedAnnealingSearch;
+import aima.search.framework.Problem;
+import aima.search.framework.Search;
+import aima.search.framework.SearchAgent;
 
 public class Main {
     public static void main(String[] args) throws Exception {
@@ -9,7 +16,9 @@ public class Main {
 
 
 
-        // Ejemplo
+
+
+        // Ejemplo salida datos
 
 
         CentrosDistribucion c = new CentrosDistribucion(10, 5, 321); //10 centros, 5 camiones
