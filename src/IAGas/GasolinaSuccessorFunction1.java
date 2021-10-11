@@ -3,6 +3,6 @@ package IAGas;
 import aima.search.framework.SuccessorFunction;
 import aima.search.framework.Successor;
 
-public class GasolinaSuccessorFunction1 {
+public class GasolinaSuccessorFunction1 implements SuccessorFunction {
     
 }

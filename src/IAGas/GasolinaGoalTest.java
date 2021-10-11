@@ -2,6 +2,6 @@ package IAGas;
 
 import aima.search.framework.GoalTest;
 
-public class GasolinaGoalTest {
+public class GasolinaGoalTest implements GoalTest {
     
 }
