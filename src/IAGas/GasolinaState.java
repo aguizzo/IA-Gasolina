@@ -2,9 +2,11 @@ package IAGas;
 
 import IA.Gasolina.CentrosDistribucion;
 import IA.Gasolina.Distribucion;
+import IA.Gasolina.Gasolinera;
 import IA.Gasolina.Gasolineras;
 
 import java.util.*;
+import static java.lang.Math.abs;
 
 
 
@@ -17,7 +19,7 @@ public class GasolinaState {
     private static int costeKm = 2; // 2/km
     private static CentrosDistribucion centros;
     private static Gasolineras gas;
-    
+
     private static int [][] distanciaCentroGasolinera; //Distancia de cada centre (de cada camio) a cada gasolinera
     private static int [][] distanciasGasGas; //Distancia de cada gasolinera a cada gasolinera
 
