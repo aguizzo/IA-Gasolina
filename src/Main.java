@@ -9,8 +9,53 @@ import aima.search.framework.Problem;
 import aima.search.framework.Search;
 import aima.search.framework.SearchAgent;
 
+import java.util.*;
+
 public class Main {
     public static void main(String[] args) throws Exception {
+
+        System.out.println("For Hill Climbing, type: 1"); 
+        System.out.println("For Simulated Annealing, type: 2");
+        System.out.println("If you want to exit the program, type any other number");  
+
+        Scanner input = new Scanner(System.in); 
+
+        int operation = input.nextInt(); 
+
+        if (operation == 1) {
+            System.out.println("Introduce a seed number, or '0', if you want a random seed:"); 
+            Integer seed = input.nextInt(); 
+            if (seed == 0) {
+                Random random = new Random(); 
+                seed = random.nextInt(); 
+            }
+
+            System.out.println("Introduce el numero de camiones por ");
+        }
+
+        else if (operation ==  2) {
+
+        }
+
+        else {
+            return; 
+        }
+
+
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -20,7 +65,7 @@ public class Main {
 
         // Ejemplo salida datos
 
-
+        /*
         CentrosDistribucion c = new CentrosDistribucion(10, 5, 321); //10 centros, 5 camiones
 
 
@@ -34,6 +79,9 @@ public class Main {
         for(int i = 0; i < g.size(); i++) {
             System.out.println("Gasolinera " + i + ": " + g.get(i).getCoordX() + " " + g.get(i).getCoordY() + " tiene " + g.get(i).getPeticiones() + " peticiones");
         }
+        */
+        
+        //END Ejemplo salida datos
 
 
 
