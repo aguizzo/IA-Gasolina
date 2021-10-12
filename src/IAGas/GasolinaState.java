@@ -38,6 +38,8 @@ public class GasolinaState {
         //copiar parte no estatica
     }
 
+
+
     //Para que el numero de centros y gasolineras sea aleatorio
     public static int randInt(int min, int max){
         Random rand = new Random();
@@ -45,6 +47,13 @@ public class GasolinaState {
         return randomNum;
     }
 
+
+    public boolean isGoalState() { //Always returns false in local search
+        return false; 
+    }
+
+
+    //About imprimir
     public void imprimirDistanciasCentroGas() {
         for(int i = 0; i < distanciaCentroGasolinera.length; i++) {
             for(int j = 0; j < distanciaCentroGasolinera[0].length; j++) {
@@ -79,14 +88,16 @@ public class GasolinaState {
             }
         }
     }
+    //END About imprimir
 
 
+
+    //About distancias
     private int calcularDistancia(Distribucion d, Gasolinera g) {
         int distancia = abs(d.getCoordX() - g.getCoordX());
         distancia += abs(d.getCoordY() - d.getCoordY());
         return distancia;
     }
-
 
     private int[][] distanciaCentGas(CentrosDistribucion cd, Gasolineras gs) {
         int filas = cd.size();
@@ -116,7 +127,7 @@ public class GasolinaState {
         }
         return  m;
     }
-
+    //END About distancias
 
 
 }
