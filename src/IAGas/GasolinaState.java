@@ -13,10 +13,11 @@ public class GasolinaState {
     private static int maxKm = 640; 
     private static int maxSpeed = 80; //km/h
     private static int maxTime = 8; // horas diarias
-    private static int valor_incial_deposito = 1000; 
-    private static int costeKm = 2 // 2/km
+    private static int precioDeposito = 1000; 
+    private static int costeKm = 2; // 2/km
     private static CentrosDistribucion centros;
     private static Gasolineras gas;
+    
     private static int [][] distanciaCentroGasolinera; //Distancia de cada centre (de cada camio) a cada gasolinera
     private static int [][] distanciasGasGas; //Distancia de cada gasolinera a cada gasolinera
 
