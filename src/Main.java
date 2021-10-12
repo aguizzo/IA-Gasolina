@@ -30,7 +30,17 @@ public class Main {
                 seed = random.nextInt(); 
             }
 
-            System.out.println("Introduce el numero de camiones por ");
+            System.out.println("Introduce the number of trucks per distribution center");
+            Integer number_trucks = input.nextInt(); 
+            if (number_trucks <= 0) {
+                System.out.println("ERROR. The number of trucks has to be a positive number, and not 0. Exiting");
+                return; 
+            }
+
+            System.out.println("If you want to use the simple initial solution system, type: 1.");
+            System.out.println("If you want to use the comlex initial solution system, type: 2.");
+            
+
         }
 
         else if (operation ==  2) {
