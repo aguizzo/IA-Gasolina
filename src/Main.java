@@ -23,30 +23,57 @@ public class Main {
 
         int operation = input.nextInt(); 
 
-        if (operation == 1) {
+        if (operation == 1 || operation == 2) {
+
+            //SEED
             System.out.println("Introduce a seed number, or '0', if you want a random seed:"); 
             Integer seed = input.nextInt(); 
             if (seed == 0) {
                 Random random = new Random(); 
                 seed = random.nextInt(); 
+                System.out.println("You've chosed a random seed"); 
+            }
+            else {
+                System.out.println("You've chosed the seed: " + seed); 
             }
 
+            //Number of trucks
             System.out.println("Introduce the number of trucks per distribution center");
             Integer number_trucks = input.nextInt(); 
             if (number_trucks <= 0) {
                 System.out.println("ERROR. The number of trucks has to be a positive number, and not 0. Exiting");
                 return; 
             }
+            else {
+                System.out.println("You've chosed " + number_trucks + " number of trucks per distribution center");
+            }
 
+            //First state creation
             GasolinaState state = new GasolinaState(number_trucks, seed); 
 
+
+            //Initial solution
             System.out.println("If you want to use the simple initial solution system, type: 1.");
             System.out.println("If you want to use the comlex initial solution system, type: 2.");
+
+            if (input.nextInt() == 1) {
+                state.SimpleInitialSolution();
+                System.out.println("You've chosed the simple initial solution system");
+            } 
+            else if (input.nextInt() ==  2) {
+                state.ComplexInitialSolution();
+                System.out.println("You've chosed the complex initial solution system");
+            }
             
 
-        }
+            if (operation == 1) {
+                GasolinaHillClimbingSearch(state);
+            }
 
-        else if (operation ==  2) {
+            else if (operation == 2) {
+                GasolinaSimulatedAnnealingSearch(state);
+            }
+
 
         }
 

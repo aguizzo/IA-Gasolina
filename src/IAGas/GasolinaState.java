@@ -43,6 +43,15 @@ public class GasolinaState {
     }
 
 
+    public void SimpleInitialSolution() {
+
+    }
+
+    public void ComplexInitialSolution() {
+
+    }
+
+
 
     //Para que el numero de centros y gasolineras sea aleatorio
     public static int randInt(int min, int max){
