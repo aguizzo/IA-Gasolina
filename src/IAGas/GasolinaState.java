@@ -30,8 +30,8 @@ public class GasolinaState {
         int numero_centros = randInt(10, 100); 
         int numero_gasolineras = randInt(10, 100); 
 
-        centros = new CentrosDistribucion(numero_centros, 1, 123);
-        gas = new Gasolineras(numero_gasolineras, 123);
+        centros = new CentrosDistribucion(numero_centros, number_trucks, seed);
+        gas = new Gasolineras(numero_gasolineras, seed);
 
         distanciaCentroGasolinera = distanciaCentGas(centros, gas);
         distanciasGasGas = distanciasGs(gas);

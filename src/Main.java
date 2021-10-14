@@ -56,7 +56,33 @@ public class Main {
 
     }
 
-    private static void GasolinaHillClimbing ()
+    private static void GasolinaHillClimbingSearch (GasolinaState state) {
+        System.out.println("\nTSP HillClimbing  -->");
+
+        try {
+            Problem problem =  new Problem(state,new GasolinaSuccessorFunction1(), new GasolinaGoalTest(),new ProbTSPHeuristicFunction());
+            Search search =  new HillClimbingSearch();
+            SearchAgent agent = new SearchAgent(problem,search);
+            
+            System.out.println();
+            printActions(agent.getActions());
+            printInstrumentation(agent.getInstrumentation());
+        } 
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void GasolinaSimulatedAnnealingSearch (GasolinaState state) {
+        System.out.println("\nTSP Simulated Annealing  -->");
+
+        try {
+
+        } 
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
 
 
