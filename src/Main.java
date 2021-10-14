@@ -1,6 +1,7 @@
 import IA.Gasolina.CentrosDistribucion;
 import IA.Gasolina.Distribucion;
 import IA.Gasolina.Gasolineras;
+import IAGas.GasolinaState;
 import IA.Gasolina.Gasolinera;
 
 import aima.search.informed.HillClimbingSearch;
@@ -37,6 +38,8 @@ public class Main {
                 return; 
             }
 
+            GasolinaState state = new GasolinaState(number_trucks, seed); 
+
             System.out.println("If you want to use the simple initial solution system, type: 1.");
             System.out.println("If you want to use the comlex initial solution system, type: 2.");
             
@@ -50,6 +53,16 @@ public class Main {
         else {
             return; 
         }
+
+    }
+
+    private static void GasolinaHillClimbing ()
+
+
+
+
+
+
 
 
 
@@ -96,5 +109,4 @@ public class Main {
 
 
 
-    }
 }

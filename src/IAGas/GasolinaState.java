@@ -26,7 +26,7 @@ public class GasolinaState {
 
 
     //Constructora por defecto
-    public GasolinaState () {
+    public GasolinaState (int number_trucks, int seed) {
         int numero_centros = randInt(10, 100); 
         int numero_gasolineras = randInt(10, 100); 
 
