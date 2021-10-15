@@ -48,7 +48,60 @@ public class GasolinaState {
     }
 
     public void ComplexInitialSolution() {
+        
+        int [][]state = new int[centros.size()][5]; //camions, recorregut (màxim 5 viatges en un dia)
+        int [][]estatCamions = new int[centros.size()][3]; //Km restants; viatges restants; diposit (0 = buit, 1 = mig, 2 = complet);
+        int [][]peticions = new int[gas.size()][3];
+        int beneficis = 0;
 
+        for (int i = 0; i < gas.size(); ++i) {
+            ArrayList<Integer> p = (gas.get(i)).getPeticiones();
+            for (int j = 0; j < 3; ++j) {
+                if (j < p.size()) peticions[i][j] = p.get(j);
+                else peticions[i][j] = -1;
+            }
+        }
+
+        for (int i = 0; i < centros.size(); ++i) {
+            for (int j = 0; j < 3; ++j) {
+                estatCamions[i][0] = maxKm;
+                estatCamions[i][1] = maxViajes;
+                estatCamions[i][2] = 2;
+            }
+        }
+
+        for (int i = 0; i < centros.size(); ++i) {
+            for (int j = 0; j < 5; ++j) {
+                state[i][j] = -1000;
+            }
+        }
+
+
+        for (int i = 0; i < centros.size(); ++i) {
+            int l = 0;
+            for (int j = 0; j < gas.size() && estatCamions[i][1] > 1 && estatCamions[i][2] > 0; j++) {
+                if ((((estatCamions[i][0]) - (distanciaCentroGasolinera[i][j] * 2)) >= 0) && ((peticions[j][0] != -1) || (peticions[j][1] != -1) || (peticions[j][2] != -1))) {
+                    for (int k = 0; k < 3 && estatCamions[i][1] > 1 && estatCamions[i][2] > 0; ++k) {
+                        int b = valor_incial_deposito;
+                        if (peticions[j][k] == 0) b *= 1.02;
+                        else b *= (1 - (Math.pow(2, peticions[j][k])) / 100);
+                        beneficis += b;
+                        estatCamions[i][2] -= 1;
+                        peticions[j][k] = -1;
+                    }
+                    beneficis -= (distanciaCentroGasolinera[i][j] * 2 * costeKm);
+                    estatCamions[i][0] -= (distanciaCentroGasolinera[i][j] * 2);
+                    estatCamions[i][1] -= 2;
+                    state[i][l] = j;
+                    ++l;
+                    state[i][l] = -i; //Negatiu significa centre de distribució.
+                    ++l;
+                    if (estatCamions[i][2] == 0) estatCamions[i][2] = 2;
+                }
+            }
+        }
+
+        imprimirState(state,beneficis);
     }
 
 
@@ -101,6 +154,19 @@ public class GasolinaState {
             }
         }
     }
+    
+    public void imprimirState(int[][] state, int beneficis) {
+        for (int i = 0; i < centros.size(); i++) {
+            for (int j = 0; j < 5 && state[i][j] != -1000; j++) {
+                if (state[i][j] < 0) {
+                    System.out.println("El camion " + i + " ha ido al centro " + -state[i][j]);
+                }
+                else System.out.println("El camion " + i + " ha ido a la gasolinera " + state[i][j]);
+            }
+        }
+        System.out.println(beneficis);
+    }    
+    
     //END About imprimir
 
 
