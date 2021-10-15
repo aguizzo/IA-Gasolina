@@ -23,6 +23,11 @@ public class GasolinaState {
     private static int [][] distanciaCentroGasolinera; //Distancia de cada centre (de cada camio) a cada gasolinera
     private static int [][] distanciasGasGas; //Distancia de cada gasolinera a cada gasolinera
 
+    int [][]state = new int[centros.size()][5]; //camions, recorregut (màxim 5 viatges en un dia)
+    int [][]estatCamions = new int[centros.size()][3]; //Km restants; viatges restants; diposit (0 = buit, 1 = mig, 2 = complet);
+    int [][]peticions = new int[gas.size()][3];
+    int beneficis = 0;
+
 
 
     //Constructora por defecto
@@ -49,10 +54,6 @@ public class GasolinaState {
 
     public void ComplexInitialSolution() {
         
-        int [][]state = new int[centros.size()][5]; //camions, recorregut (màxim 5 viatges en un dia)
-        int [][]estatCamions = new int[centros.size()][3]; //Km restants; viatges restants; diposit (0 = buit, 1 = mig, 2 = complet);
-        int [][]peticions = new int[gas.size()][3];
-        int beneficis = 0;
 
         for (int i = 0; i < gas.size(); ++i) {
             ArrayList<Integer> p = (gas.get(i)).getPeticiones();
