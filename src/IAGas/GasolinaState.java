@@ -63,11 +63,9 @@ public class GasolinaState {
         }
 
         for (int i = 0; i < centros.size(); ++i) {
-            for (int j = 0; j < 3; ++j) {
                 estatCamions[i][0] = maxKm;
                 estatCamions[i][1] = maxViajes;
                 estatCamions[i][2] = 2;
-            }
         }
 
         for (int i = 0; i < centros.size(); ++i) {
