@@ -11,15 +11,11 @@ public class GasolinaSuccessorFunction1 implements SuccessorFunction {
         GasolinaState board = (GasolinaState) state;
 
         GasolinaState new_state = new GasolinaState(board);
+        // Per a cada cmió. fer un estat per a totes les gasolineres.
         for (int i = 0; i < GasolinaState.centros.size(); ++i) {
             for (int j = 0; j < GasolinaState.gas.size(); ++j) {
-                new_state.addGasolinera(i,j);
-                for ()
-                while () //camio pugui repartir reparteixi
+                if (new_state.addGasolinera(i,j)) retval.add(new Successor(new String(), new_state));
             }
-
-            retval.add(new Successor(new String(), new_state));
-
         }
         return retval;
     }
