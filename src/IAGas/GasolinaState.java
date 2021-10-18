@@ -43,9 +43,32 @@ public class GasolinaState {
         distanciasGasGas = distanciasGs(gas);
     }
 
-    //Constructora por copia
+//Constructora por copia
     public GasolinaState(GasolinaState gb){
-        //copiar parte no estatica
+        this.beneficis = gb.beneficis;
+
+        this.state = new ArrayList<List<int[]>>(centros.size());
+
+        for (int i = 0; i < centros.size(); ++i) {
+            List<int[]> list = new ArrayList<int[]>(gb.state.get(i).size());
+            list.addAll(gb.state.get(i));
+            state.add(list);
+        }
+
+        this.peticions = new ArrayList<List<Integer>>(gas.size());
+
+        for (int i = 0; i < gas.size(); ++i) {
+            List<Integer> list = new ArrayList<Integer>(gb.peticions.get(i).size());
+            list.addAll(gb.peticions.get(i));
+            peticions.add(list);
+        }
+
+        this.estatCamions = new int[centros.size()][3];
+
+        for (int i = 0; i < centros.size(); ++i) {
+            System.arraycopy(gb.estatCamions[i], 0, estatCamions[i], 0, 3);
+        }
+
     }
 
 
