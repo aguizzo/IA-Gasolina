@@ -73,9 +73,17 @@ public class GasolinaState {
 
 
     public void SimpleInitialSolution() {
+        centros = new CentrosDistribucion(10, 1, 1234);
+        gas = new Gasolineras(100, 1234);
+        distanciaCentroGasolinera = distanciaCentGas(centros, gas);
+        distanciasGasGas = distanciasGs(gas);
 
+        estatCamions = calcularEstatCamions();
+        peticions = calcularPeticions();
+        state = calcularState();
     }
-
+    
+    /*
     public void ComplexInitialSolution() {
         //S'ha de canviar per a llistes i simplificar-ho
 
@@ -125,6 +133,10 @@ public class GasolinaState {
         }
 
         imprimirState(state,beneficis);
+    }
+    */
+    public double heuristic() {
+        return -beneficis;
     }
     
     
