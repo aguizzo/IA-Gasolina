@@ -17,8 +17,8 @@ public class GasolinaState {
     private static int maxTime = 8; // horas diarias
     private static int precioDeposito = 1000; 
     private static int costeKm = 2; // 2/km
-    private static CentrosDistribucion centros;
-    private static Gasolineras gas;
+    static CentrosDistribucion centros;                 //Tret private, sino Successor no pot accedir
+    static Gasolineras gas;                     //Tret private, sino Successor no pot accedir
 
     private static int [][] distanciaCentroGasolinera; //Distancia de cada centre (de cada camio) a cada gasolinera
     private static int [][] distanciasGasGas; //Distancia de cada gasolinera a cada gasolinera
@@ -181,7 +181,7 @@ public class GasolinaState {
     }
 
     //Add Camió i a Gasolinera j
-    private boolean addGasolinera(int i, int j){
+    boolean addGasolinera(int i, int j){            //Tret private, sino Successor no pot accedir
         //Afegir trajecte de Centre de Distribució a Gasolinera
 
         if (state.get(i).isEmpty() || state.get(i).get(state.get(i).size()-1)[1] == -1) {

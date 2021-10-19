@@ -1,8 +1,8 @@
 import IA.Gasolina.CentrosDistribucion;
 import IA.Gasolina.Distribucion;
 import IA.Gasolina.Gasolineras;
-import IAGas.GasolinaState;
 import IA.Gasolina.Gasolinera;
+import IAGas.*;
 
 import aima.search.informed.HillClimbingSearch;
 import aima.search.informed.SimulatedAnnealingSearch;
