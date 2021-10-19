@@ -13,8 +13,8 @@ import static java.lang.Math.abs;
 public class GasolinaState {
     private static int maxViajes = 5;
     private static int maxKm = 640; 
-    private static int maxSpeed = 80; //km/h
-    private static int maxTime = 8; // horas diarias
+    //private static int maxSpeed = 80; //km/h                  //no la necessitem
+    //private static int maxTime = 8; // horas diarias          //no la necessitem
     private static int precioDeposito = 1000; 
     private static int costeKm = 2; // 2/km
     static CentrosDistribucion centros;                 //Tret private, sino Successor no pot accedir
@@ -186,7 +186,7 @@ public class GasolinaState {
 
         if (state.get(i).isEmpty() || state.get(i).get(state.get(i).size()-1)[1] == -1) {
             if ((estatCamions[i][0]) - (distanciaCentroGasolinera[i][j] * 2) >= 0 && !peticions.get(j).isEmpty()) {
-                int b = valor_incial_deposito;
+                int b = precioDeposito;
                 int numPets = peticions.get(j).size() -1;
                 if (peticions.get(j).get(numPets) == 0) b *= 1.02;
                 else b *= (1 - (Math.pow(2, peticions.get(j).get(numPets))) / 100);
@@ -208,7 +208,7 @@ public class GasolinaState {
         }
         else { // Afegir trajecte de Gasolinera a Gasolinera
             if (estatCamions[i][0] - distanciaCentroGasolinera[i][j] - distanciasGasGas[state.get(i).size()-1][j] >= 0 && !peticions.get(j).isEmpty()) {
-                int b = valor_incial_deposito;
+                int b = precioDeposito;
                 int numPets = peticions.get(j).size() -1;
                 if (peticions.get(j).get(numPets) == 0) b *= 1.02;
                 else b *= (1 - (Math.pow(2, peticions.get(j).get(numPets))) / 100);
@@ -294,7 +294,7 @@ public class GasolinaState {
                 }
             }
             peticions.get(lastGas).add(lastPet);
-            int b = valor_incial_deposito;
+            int b = precioDeposito;
             if (lastPet == 0) b *= 1.02;
             else b *= (1 - (Math.pow(2, lastPet) / 100));
             beneficis -= b;
@@ -311,7 +311,7 @@ public class GasolinaState {
 
 
 
-    //Para que el numero de centros y gasolineras sea aleatorio
+    //random int
     public static int randInt(int min, int max){
         Random rand = new Random();
         int randomNum = rand.nextInt(max-min)+min;
