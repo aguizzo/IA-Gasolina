@@ -41,6 +41,10 @@ public class GasolinaState {
 
         distanciaCentroGasolinera = distanciaCentGas(centros, gas);
         distanciasGasGas = distanciasGs(gas);
+
+        estatCamions = calcularEstatCamions();
+        peticions = calcularPeticions();
+        state = calcularState();
     }
 
 //Constructora por copia
@@ -73,14 +77,14 @@ public class GasolinaState {
 
 
     public void SimpleInitialSolution() {
-        centros = new CentrosDistribucion(10, 1, 1234);
-        gas = new Gasolineras(100, 1234);
-        distanciaCentroGasolinera = distanciaCentGas(centros, gas);
-        distanciasGasGas = distanciasGs(gas);
+        //centros = new CentrosDistribucion(10, 1, 1234);               //Aixo ja ho fa la constructora per defecte
+        //gas = new Gasolineras(100, 1234);                             //Aixo ja ho fa la constructora per defecte
+        //distanciaCentroGasolinera = distanciaCentGas(centros, gas);   //Aixo ja ho fa la constructora per defecte
+        //distanciasGasGas = distanciasGs(gas);                         //Aixo ja ho fa la constructora per defecte
 
-        estatCamions = calcularEstatCamions();
-        peticions = calcularPeticions();
-        state = calcularState();
+        //estatCamions = calcularEstatCamions();                        //Aixo ja ho fa la constructora per defecte
+        //peticions = calcularPeticions();                              //Aixo ja ho fa la constructora per defecte
+        //state = calcularState();                                      //Aixo ja ho fa la constructora per defecte
     }
     
 
