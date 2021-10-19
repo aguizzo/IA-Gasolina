@@ -38,15 +38,12 @@ public class Main {
             }
 
             //Number of trucks
-            System.out.println("Introduce the number of trucks per distribution center");
+            System.out.println("Introduce the number of trucks per distribution center. If you want to use the default number (1), type -1");
             Integer number_trucks = input.nextInt(); 
             if (number_trucks <= 0) {
-                System.out.println("ERROR. The number of trucks has to be a positive number, and not 0. Exiting");
-                return; 
+                number_trucks = 1; 
             }
-            else {
                 System.out.println("You've chosed " + number_trucks + " number of trucks per distribution center");
-            }
 
             //First state creation
             GasolinaState state = new GasolinaState(number_trucks, seed); 
