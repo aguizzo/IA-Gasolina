@@ -83,15 +83,15 @@ public class GasolinaState {
         state = calcularState();
     }
     
-    /*
+
     public void ComplexInitialSolution() {
         //S'ha de canviar per a llistes i simplificar-ho
 
         for (int i = 0; i < gas.size(); ++i) {
             ArrayList<Integer> p = (gas.get(i)).getPeticiones();
             for (int j = 0; j < 3; ++j) {
-                if (j < p.size()) peticions[i][j] = p.get(j);
-                else peticions[i][j] = -1;
+                if (j < p.size()) peticions.get(i).set(j, p.get(j)); 
+                else peticions.get(i).set(j, -1); 
             }
         }
 
@@ -111,14 +111,14 @@ public class GasolinaState {
         for (int i = 0; i < centros.size(); ++i) {
             int l = 0;
             for (int j = 0; j < gas.size() && estatCamions[i][1] > 1 && estatCamions[i][2] > 0; j++) {
-                if ((((estatCamions[i][0]) - (distanciaCentroGasolinera[i][j] * 2)) >= 0) && ((peticions[j][0] != -1) || (peticions[j][1] != -1) || (peticions[j][2] != -1))) {
+                if ((((estatCamions[i][0]) - (distanciaCentroGasolinera[i][j] * 2)) >= 0) && ((peticions.get(j).get(0) != -1) || (peticions.get(j).get(1) != -1) || (peticions.get(j).get(2) != -1))) {
                     for (int k = 0; k < 3 && estatCamions[i][1] > 1 && estatCamions[i][2] > 0; ++k) {
-                        int b = valor_incial_deposito;
-                        if (peticions[j][k] == 0) b *= 1.02;
-                        else b *= (1 - (Math.pow(2, peticions[j][k])) / 100);
+                        int b = precioDeposito;
+                        if (peticions.get(j).get(k) == 0) b *= 1.02;
+                        else b *= (1 - (Math.pow(2, peticions.get(j).get(k))) / 100);
                         beneficis += b;
                         estatCamions[i][2] -= 1;
-                        peticions[j][k] = -1;
+                        peticions.get(j).set(k, -1); 
                     }
                     beneficis -= (distanciaCentroGasolinera[i][j] * 2 * costeKm);
                     estatCamions[i][0] -= (distanciaCentroGasolinera[i][j] * 2);
@@ -134,7 +134,7 @@ public class GasolinaState {
 
         imprimirState(state,beneficis);
     }
-    */
+
     public double heuristic() {
         return -beneficis;
     }
