@@ -91,25 +91,32 @@ public class GasolinaState {
     public void ComplexInitialSolution() {
         //S'ha de canviar per a llistes i simplificar-ho
 
-        for (int i = 0; i < gas.size(); ++i) {
+/*
+        for (int i = 0; i < gas.size(); ++i) {                                  //Aixo ja ho fa la constructora per defecte                  
             ArrayList<Integer> p = (gas.get(i)).getPeticiones();
             for (int j = 0; j < 3; ++j) {
                 if (j < p.size()) peticions.get(i).set(j, p.get(j)); 
                 else peticions.get(i).set(j, -1); 
             }
         }
+*/
 
-        for (int i = 0; i < centros.size(); ++i) {
+
+/*
+        for (int i = 0; i < centros.size(); ++i) {                              //Aixo ja ho fa la constructora per defecte
                 estatCamions[i][0] = maxKm;
                 estatCamions[i][1] = maxViajes;
                 estatCamions[i][2] = 2;
         }
+*/
 
-        for (int i = 0; i < centros.size(); ++i) {
+/*
+        for (int i = 0; i < centros.size(); ++i) {                              //Aixo ja ho fa la constructora per defecte
             for (int j = 0; j < 5; ++j) {
                 state[i][j] = -1000;
             }
         }
+*/
 
 
         for (int i = 0; i < centros.size(); ++i) {
