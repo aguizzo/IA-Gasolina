@@ -17,7 +17,7 @@ public class GasolinaSuccessorFunction2 implements SuccessorFunction {
 
         int camion = myRandom.nextInt(GasolinaState.centros.size()); 
 
-        añadir_gasolinera_aleatoria_compatible(camion, new_state, retval); 
+        //añadir_gasolinera_aleatoria_compatible(camion, new_state, retval);  Laltre opcio, en que llavors de buscar un camio i gas aleatories, intentem primer buscar gasolineres aleatories compatibles amb el camio que hem elegit de forma aleatoria
 
 
 
@@ -26,6 +26,11 @@ public class GasolinaSuccessorFunction2 implements SuccessorFunction {
     }
 
 
+    private void buscar_gasolinera_camio_aleatoris_compatibles
+    //...
+
+
+    /*
     private void añadir_gasolinera_aleatoria_compatible (int camion, GasolinaState new_state, ArrayList<Successor> retval) {
         Random myRandom=new Random();
         int gasolinera = myRandom.nextInt(GasolinaState.gas.size());
@@ -40,6 +45,8 @@ public class GasolinaSuccessorFunction2 implements SuccessorFunction {
             añadir_gasolinera_aleatoria_compatible(camion, new_state, retval);
         }
     }
+    */
+
 
 
 }
