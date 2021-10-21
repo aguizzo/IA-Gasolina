@@ -36,6 +36,9 @@ public class GasolinaState {
         int numero_centros = randInt(10, 100); 
         int numero_gasolineras = randInt(10, 100); 
 
+        System.out.println(numero_centros + " centers have been created.");
+        System.out.println(numero_gasolineras + " gas stations have been created.");
+
         centros = new CentrosDistribucion(numero_centros, number_trucks, seed);
         gas = new Gasolineras(numero_gasolineras, seed);
 
