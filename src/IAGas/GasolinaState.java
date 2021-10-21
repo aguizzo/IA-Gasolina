@@ -157,12 +157,12 @@ public class GasolinaState {
     //Add Camió i a Gasolinera j
     public boolean addGasolinera(int i, int j){            //Tret private, sino Successor no pot accedir
         //Afegir trajecte de Centre de Distribució a Gasolinera
-        if (!state.get(i).isEmpty()) {
-            if (state.get(i).get(state.get(i).size()-1)[1] >= 0) beneficis += (distanciaCentroGasolinera[i][state.get(i).get(state.get(i).size()-1)[0]] * costeKm);
-        }
 
         if (state.get(i).isEmpty() || state.get(i).get(state.get(i).size()-1)[1] == -1) {
             if ((estatCamions[i][0]) - (distanciaCentroGasolinera[i][j] * 2) >= 0 && !peticions.get(j).isEmpty()) {
+                if (!state.get(i).isEmpty()) {
+                    if (state.get(i).get(state.get(i).size()-1)[1] != -1) beneficis += (distanciaCentroGasolinera[i][state.get(i).get(state.get(i).size()-1)[0]] * costeKm);
+                }
                 int b = precioDeposito;
                 int numPets = peticions.get(j).size() -1;
                 if (peticions.get(j).get(numPets) == 0) b *= 1.02;
@@ -184,6 +184,9 @@ public class GasolinaState {
         }
         else { // Afegir trajecte de Gasolinera a Gasolinera
             if (estatCamions[i][0] - distanciaCentroGasolinera[i][j] - distanciasGasGas[state.get(i).size()-1][j] >= 0 && !peticions.get(j).isEmpty()) {
+                if (!state.get(i).isEmpty()) {
+                    if (state.get(i).get(state.get(i).size()-1)[1] != -1) beneficis += (distanciaCentroGasolinera[i][state.get(i).get(state.get(i).size()-1)[0]] * costeKm);
+                }
                 int b = precioDeposito;
                 int numPets = peticions.get(j).size() -1;
                 if (peticions.get(j).get(numPets) == 0) b *= 1.02;
@@ -222,7 +225,7 @@ public class GasolinaState {
     }
 
     // Remove última gasolinera del camió i
-    private boolean removeGasolinera(int i){
+    public boolean removeGasolinera(int i){
         if (!state.get(i).isEmpty()) {
             int l = state.get(i).get(state.get(i).size() -1)[0];
             int l1 = state.get(i).get(state.get(i).size() -1)[1]; // l1 = ultim punt visitat
@@ -232,7 +235,7 @@ public class GasolinaState {
             int lastPet;
             if (state.get(i).size() == 1) {
                 lastGas = l;
-                km = distanciaCentroGasolinera[i][l];
+                km = distanciaCentroGasolinera[i][l] * 2;
                 lastPet = l1;
             }
             else {
@@ -254,11 +257,11 @@ public class GasolinaState {
                         }
                         else {
                             km = distanciaCentroGasolinera[i][g];
-                            km += distanciasGasGas[c][g];
+                            km += distanciasGasGas[g][c];
                             estatCamions[i][2] -= 1;
+                            beneficis -= (distanciaCentroGasolinera[i][c] * costeKm);
                         }
                     }
-
                     state.get(i).remove(state.get(i).size() -2);
                     lastGas = g;
                     lastPet = g1;
@@ -267,27 +270,62 @@ public class GasolinaState {
                 else {
                     lastGas = l;
                     lastPet = l1;
-                    if (g1 == -1) km = distanciaCentroGasolinera[g][l];
-                    else km = distanciasGasGas[g][l];
+                    if (g1 == -1) km = distanciaCentroGasolinera[g][l]*2;
+                    else {
+                        km = distanciasGasGas[g][l];
+                        beneficis += (distanciaCentroGasolinera[i][l] * costeKm);
+                        beneficis -= (distanciaCentroGasolinera[i][g] * costeKm);
+                    }
                 }
             }
             peticions.get(lastGas).add(lastPet);
-            int b = precioDeposito;
+            int b = valor_incial_deposito;
             if (lastPet == 0) b *= 1.02;
             else b *= (1 - (Math.pow(2, lastPet) / 100));
             beneficis -= b;
             beneficis += (km * costeKm);
             estatCamions[i][0] += km;
-            estatCamions[i][1] += 1;
             state.get(i).remove(state.get(i).size() -1);
             return true;
         }
         return false;
     }
-
     
+    //Last Gasolinera visitada del camió i
+    private int lastGasolinera(int i) {
+        if (!state.get(i).isEmpty()) {
+            if (state.get(i).get(state.get(i).size()-1)[1] == -1) {
+                return state.get(i).get(state.get(i).size()-2)[0];
+            }
+            else return state.get(i).get(state.get(i).size()-1)[0];
+        }
+        return -1;
+    }
 
-
+    //Fer un canvi del últim viatge de el camió i al camió j
+    public boolean swap(int i, int j) {
+        int l1 = lastGasolinera(i);
+        int l2 = lastGasolinera(j);
+        if (l1 != -1 || l2 != -1) {
+            if (l1 == -1) {
+                addGasolinera(i,l2);
+                removeGasolinera(j);
+            }
+            else if (l2 == -1) {
+                removeGasolinera(i);
+                addGasolinera(j,l1);
+            }
+            else {
+                removeGasolinera(i);
+                removeGasolinera(j);
+                addGasolinera(i,l2);
+                addGasolinera(j,l1);
+            }
+            return true;
+        }
+        return false;
+    }
+    
 
     //random int
     public static int randInt(int min, int max){
