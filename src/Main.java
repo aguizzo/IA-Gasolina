@@ -63,11 +63,16 @@ public class Main {
             }
             
 
+            System.out.println("If you want to use Hill Climb, type: 1.");
+            System.out.println("If you want to use Simulated Annealing, type: 2");
+
             if (operation == 1) {
+                System.out.println("You've chosed the Hill Climb algorithm");
                 GasolinaHillClimbingSearch(state);
             }
 
             else if (operation == 2) {
+                System.out.println("You've chosed the Simulated Annealing algorithm");
                 GasolinaSimulatedAnnealingSearch(state);
             }
 
