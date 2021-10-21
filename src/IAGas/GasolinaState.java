@@ -32,9 +32,19 @@ public class GasolinaState {
 
 
     //Constructora por defecto
-    public GasolinaState (int number_trucks, int seed) {
-        int numero_centros = randInt(10, 100); 
-        int numero_gasolineras = randInt(10, 100); 
+    public GasolinaState (int number_trucks, int seed, int explicit_centers, int explicit_gas_stations, boolean random) {
+        int numero_centros; 
+        int numero_gasolineras; 
+        if (random) {
+            numero_centros = randInt(10, 100); 
+            numero_gasolineras = randInt(10, 100); 
+        }
+
+        else {
+            numero_centros = explicit_centers; 
+            numero_gasolineras = explicit_gas_stations; 
+
+        }
 
         System.out.println(numero_centros + " centers have been created.");
         System.out.println(numero_gasolineras + " gas stations have been created.");

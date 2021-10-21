@@ -25,16 +25,43 @@ public class Main {
 
         if (operation == 1 || operation == 2) {
 
-            //SEED
-            System.out.println("Introduce a seed number, or '0', if you want a random seed:"); 
-            Integer seed = input.nextInt(); 
-            if (seed == 0) {
-                Random random = new Random(); 
-                seed = random.nextInt(); 
-                System.out.println("You've chosed a random seed"); 
-            }
+            System.out.println("If you want the number of centers and gas stations to be created randomly, type: 1"); 
+            System.out.println("If not, type: 0"); 
+
+            int is_random = input.nextInt(); 
+
+            int seed; 
+            int explicit_centers; 
+            int explicit_gas_stations; 
+            boolean do_random; 
+
+            if (is_random == 1) {
+                do_random = true; 
+                explicit_centers = 0; 
+                explicit_gas_stations = 0; 
+                //SEED
+                System.out.println("Introduce a seed number, or '0', if you want a random seed:"); 
+                seed = input.nextInt(); 
+                if (seed == 0) {
+                    Random random = new Random(); 
+                    seed = random.nextInt(); 
+                    System.out.println("You've chosed a random seed"); 
+                }
+                else {
+                    System.out.println("You've chosed the seed: " + seed); 
+                }
+
+                }
+
             else {
-                System.out.println("You've chosed the seed: " + seed); 
+                do_random = false; 
+                seed = 0; 
+                System.out.println("Introduce the exact number of centers you want to create on the simulation"); 
+                explicit_centers = input.nextInt(); 
+
+                System.out.println("Introduce the exact number of gas stations you want to create on the simulation"); 
+                explicit_gas_stations = input.nextInt(); 
+
             }
 
             //Number of trucks
@@ -46,7 +73,7 @@ public class Main {
                 System.out.println("You've chosed " + number_trucks + " number of trucks per distribution center");
 
             //First state creation
-            GasolinaState state = new GasolinaState(number_trucks, seed); 
+            GasolinaState state = new GasolinaState(number_trucks, seed, explicit_centers, explicit_gas_stations, do_random); 
 
 
             //Initial solution
