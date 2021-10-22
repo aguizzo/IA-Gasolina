@@ -160,7 +160,7 @@ public class GasolinaState {
     public boolean addGasolinera(int i, int j){            //Tret private, sino Successor no pot accedir
         //Afegir trajecte de Centre de Distribució a Gasolinera
 
-        if (state.get(i).isEmpty() || state.get(i).get(state.get(i).size()-1)[1] == -1) {
+        if ((state.get(i).isEmpty() || state.get(i).get(state.get(i).size()-1)[1] == -1) && estatCamions[i][1] > 0) {
             if ((estatCamions[i][0]) - (distanciaCentroGasolinera[i][j] * 2) >= 0 && !peticions.get(j).isEmpty()) {
                 if (!state.get(i).isEmpty()) {
                     if (state.get(i).get(state.get(i).size()-1)[1] != -1) beneficis += (distanciaCentroGasolinera[i][state.get(i).get(state.get(i).size()-1)[0]] * costeKm);
@@ -185,7 +185,7 @@ public class GasolinaState {
             }
         }
         else { // Afegir trajecte de Gasolinera a Gasolinera
-            if (estatCamions[i][0] - distanciaCentroGasolinera[i][j] - distanciasGasGas[state.get(i).size()-1][j] >= 0 && !peticions.get(j).isEmpty()) {
+            if (estatCamions[i][0] - distanciaCentroGasolinera[i][j] - distanciasGasGas[state.get(i).get(state.get(i).size()-1)[0]][j] >= 0 && !peticions.get(j).isEmpty() && estatCamions[i][1] > 0) {
                 if (!state.get(i).isEmpty()) {
                     if (state.get(i).get(state.get(i).size()-1)[1] != -1) beneficis += (distanciaCentroGasolinera[i][state.get(i).get(state.get(i).size()-1)[0]] * costeKm);
                 }
