@@ -88,7 +88,8 @@ public class Main {
                 state.ComplexInitialSolution();
                 System.out.println("You've chosed the complex initial solution system");
             }
-            
+            double timeStart, timeFinish;
+            timeStart = System.currentTimeMillis();
 
             if (operation == 1) {
                 GasolinaHillClimbingSearch(state);
@@ -100,6 +101,8 @@ public class Main {
                 GasolinaState.opcio_s_annealing = opcio;  
                 GasolinaSimulatedAnnealingSearch(state);
             }
+            
+            System.out.println("Execution Time: " + timeFinish/1000 + " seconds");
 
             return; 
 
