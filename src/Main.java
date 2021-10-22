@@ -88,21 +88,24 @@ public class Main {
                 state.ComplexInitialSolution();
                 System.out.println("You've chosed the complex initial solution system");
             }
-            double timeStart, timeFinish;
-            timeStart = System.currentTimeMillis();
 
             if (operation == 1) {
+                long timeStart = System.currentTimeMillis();
                 GasolinaHillClimbingSearch(state);
+                long timeEstimated = System.currentTimeMillis() - timeStart; 
+                System.out.println("Execution Time: " + (timeEstimated/1000) + " seconds");
             }
 
             else if (operation == 2) {
                 System.out.println("Choose one of the four options with which the successor function is able to choose new states with S annealing: 1, 2, 3 o or 4 ");
                 int opcio = input.nextInt(); 
                 GasolinaState.opcio_s_annealing = opcio;  
+                long timeStart = System.currentTimeMillis();
                 GasolinaSimulatedAnnealingSearch(state);
+                long timeEstimated = System.currentTimeMillis() - timeStart; 
+                System.out.println("Execution Time: " + (timeEstimated/1000) + " seconds");
             }
             
-            System.out.println("Execution Time: " + timeFinish/1000 + " seconds");
 
             return; 
 

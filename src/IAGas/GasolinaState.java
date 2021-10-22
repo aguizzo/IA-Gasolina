@@ -281,7 +281,7 @@ public class GasolinaState {
                 }
             }
             peticions.get(lastGas).add(lastPet);
-            int b = valor_incial_deposito;
+            int b = precioDeposito;
             if (lastPet == 0) b *= 1.02;
             else b *= (1 - (Math.pow(2, lastPet) / 100));
             beneficis -= b;
