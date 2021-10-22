@@ -392,7 +392,7 @@ public class GasolinaState {
                 else System.out.println("El camion " + i + " ha ido a la gasolinera " + point);
             }
         }
-        System.out.println(beneficis);
+        System.out.println("beneficis: " +    beneficis);
     }
     
     //END About imprimir

@@ -86,20 +86,14 @@ public class Main {
             }
 
             if (operation == 1) {
-                long timeStart = System.currentTimeMillis();
                 GasolinaHillClimbingSearch(state);
-                long timeEstimated = System.currentTimeMillis() - timeStart; 
-                System.out.println("Execution Time: " + (timeEstimated/1000.0) + " seconds");
             }
 
             else if (operation == 2) {
                 System.out.println("Choose one of the four options with which the successor function is able to choose new states with S annealing: 1, 2, 3 o or 4 ");
                 int opcio = input.nextInt(); 
                 GasolinaState.opcio_s_annealing = opcio;  
-                long timeStart = System.currentTimeMillis();
                 GasolinaSimulatedAnnealingSearch(state);
-                long timeEstimated = System.currentTimeMillis() - timeStart; 
-                System.out.println("Execution Time: " + (timeEstimated/1000.0) + " seconds");
             }
             
 
@@ -118,6 +112,8 @@ public class Main {
         System.out.println("\nTSP HillClimbing  -->");
 
         try {
+            long timeStart = System.currentTimeMillis();
+
             Problem problem =  new Problem(state,new GasolinaSuccessorFunction1(), new GasolinaGoalTest(),new GasolinaHeuristic());
             Search search =  new HillClimbingSearch();
             SearchAgent agent = new SearchAgent(problem,search);
@@ -130,6 +126,14 @@ public class Main {
             //System.out.println("\n" + ((AzamonEstado) search.getGoalState()).correspondenciasToString());
 
             System.out.println("Finished");
+
+            long timeEstimated = System.currentTimeMillis() - timeStart; 
+            System.out.println("Execution Time: " + (timeEstimated/1000.0) + " seconds");
+            
+            System.out.println();
+            GasolinaState last = (GasolinaState) search.getGoalState();
+            System.out.println("Last state: ");
+            last.imprimirState();
         } 
         catch (Exception e) {
             e.printStackTrace();
@@ -140,19 +144,29 @@ public class Main {
         System.out.println("\nTSP Simulated Annealing  -->");
 
         try {
+            long timeStart = System.currentTimeMillis();
+
             Problem problem =  new Problem(state,new GasolinaSuccessorFunction2(), new GasolinaGoalTest(),new GasolinaHeuristic());
             SimulatedAnnealingSearch search =  new SimulatedAnnealingSearch(2000,100,5,0.001);    //QUE NUMEROS PONEMOS?
             search.traceOn();
             SearchAgent agent = new SearchAgent(problem,search);
             
             System.out.println();
-            printActions(agent.getActions());
+            //printActions(agent.getActions());
             printInstrumentation(agent.getInstrumentation());
 
             //System.out.println("\n" + ((AzamonEstado) search.getGoalState()).toString());
             //System.out.println("\n" + ((AzamonEstado) search.getGoalState()).correspondenciasToString());
 
             System.out.println("Finished");
+
+            long timeEstimated = System.currentTimeMillis() - timeStart; 
+            System.out.println("Execution Time: " + (timeEstimated/1000.0) + " seconds");
+
+            System.out.println();
+            GasolinaState last = (GasolinaState) search.getGoalState();
+            System.out.println("Last state: ");
+            last.imprimirState(); 
         } 
         catch (Exception e) {
             e.printStackTrace();
@@ -175,56 +189,6 @@ public class Main {
             System.out.println(action);
         }
     }
-
-
-
-
-
-
-
-
-
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        // Ejemplo salida datos
-
-        /*
-        CentrosDistribucion c = new CentrosDistribucion(10, 5, 321); //10 centros, 5 camiones
-
-
-        for(int i = 0; i < c.size(); ++i) {
-            System.out.println("Centro " + i + ": " + (c.get(i)).getCoordX() + " " + (c.get(i)).getCoordY());
-        }
-
-
-        Gasolineras g = new Gasolineras(50, 321); //50 gasolineras
-
-        for(int i = 0; i < g.size(); i++) {
-            System.out.println("Gasolinera " + i + ": " + g.get(i).getCoordX() + " " + g.get(i).getCoordY() + " tiene " + g.get(i).getPeticiones() + " peticiones");
-        }
-        */
-        
-        //END Ejemplo salida datos
-
-
 
 
 }
