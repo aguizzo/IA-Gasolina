@@ -12,10 +12,11 @@ public class GasolinaSuccessorFunction2 implements SuccessorFunction {
     public List getSuccessors(Object state) {
         ArrayList<Successor> retval = new ArrayList<>();
         GasolinaState board = (GasolinaState) state;
-
         GasolinaState new_state = new GasolinaState(board);
-
         int opcio = GasolinaState.opcio_s_annealing; 
+
+        int numero_camions = GasolinaState.centros.size(); 
+        int numero_gasolineras = GasolinaState.gas.size(); 
 
         //Es tria de forma random si es fa add o swap. LLavors es tria de forma random un camio i gas (o camio i camio)
         //Si no es pot realitzar loperacio desitjada per aquests dos, llavors es tria un altre camio i gasolinera randoms per fer aquesta operacio. 
@@ -27,8 +28,8 @@ public class GasolinaSuccessorFunction2 implements SuccessorFunction {
             if (tipus_metode == 0) {
                 int gasolinera; 
                 do {
-                    camio_1 =  randInt(0, ((GasolinaState.centros.size())-1)); 
-                    gasolinera = randInt(0, ((GasolinaState.gas.size())-1)); 
+                    camio_1 =  randInt(0, numero_camions-1); 
+                    gasolinera = randInt(0, numero_gasolineras-1); 
                 } while (!(new_state.addGasolinera(camio_1,gasolinera))); 
 
                 StringBuffer S = new StringBuffer();
@@ -41,9 +42,9 @@ public class GasolinaSuccessorFunction2 implements SuccessorFunction {
             else if (tipus_metode == 1) {
                 int camio_2; 
                 do {
-                    camio_1 =  randInt(0, ((GasolinaState.centros.size())-1)); 
+                    camio_1 =  randInt(0, numero_camions-1); 
                     do {
-                        camio_2 = randInt(0, ((GasolinaState.centros.size())-1)); 
+                        camio_2 = randInt(0, numero_camions-1); 
                     } while (camio_1 == camio_2); 
                 } while (!(new_state.swap(camio_1,camio_2))); 
 
@@ -61,10 +62,10 @@ public class GasolinaSuccessorFunction2 implements SuccessorFunction {
         else if (opcio == 2) {
             int tipus_metode = randInt(0, 1); // 0 = add    1 = swap
 
-            int camio_1 = randInt(0, ((GasolinaState.centros.size())-1)); 
+            int camio_1 = randInt(0, numero_camions-1); 
 
             if (tipus_metode == 0) {
-                int gasolinera = randInt(0, ((GasolinaState.gas.size())-1)); 
+                int gasolinera = randInt(0, numero_gasolineras-1); 
                 if (new_state.addGasolinera(camio_1,gasolinera)) {
                     StringBuffer S = new StringBuffer();
                     S.append("s'ha afegit la gasolinera " + gasolinera + " al camió " + camio_1 + ". Beneficis: " + new_state.beneficis);
@@ -75,7 +76,7 @@ public class GasolinaSuccessorFunction2 implements SuccessorFunction {
             else if (tipus_metode == 1) {
                 int camio_2; 
                 do {
-                    camio_2 = randInt(0, ((GasolinaState.centros.size())-1)); 
+                    camio_2 = randInt(0, numero_camions-1); 
                 } while (camio_1 == camio_2); 
                 if (new_state.swap(camio_1,camio_2)) {
                     StringBuffer S = new StringBuffer();
@@ -90,10 +91,10 @@ public class GasolinaSuccessorFunction2 implements SuccessorFunction {
         else if (opcio == 3) {
             int tipus_metode = randInt(0, 1); // 0 = add    1 = swap
 
-            int camio_1 = randInt(0, ((GasolinaState.centros.size())-1)); 
+            int camio_1 = randInt(0, numero_camions-1); 
 
             if (tipus_metode == 0) {
-                int gasolinera = randInt(0, ((GasolinaState.gas.size())-1)); 
+                int gasolinera = randInt(0, numero_gasolineras-1); 
                 if (new_state.addGasolinera(camio_1,gasolinera)) {
                     StringBuffer S = new StringBuffer();
                     S.append("s'ha afegit la gasolinera " + gasolinera + " al camió " + camio_1 + ". Beneficis: " + new_state.beneficis);
@@ -102,7 +103,7 @@ public class GasolinaSuccessorFunction2 implements SuccessorFunction {
                 else { //intentar laltre operacio
                     int camio_2; 
                     do {
-                        camio_2 = randInt(0, ((GasolinaState.centros.size())-1)); 
+                        camio_2 = randInt(0, numero_camions-1); 
                     } while (camio_1 == camio_2); 
                     if (new_state.swap(camio_1,camio_2)) {
                         StringBuffer S = new StringBuffer();
@@ -116,7 +117,7 @@ public class GasolinaSuccessorFunction2 implements SuccessorFunction {
             else if (tipus_metode == 1) {
                 int camio_2; 
                 do {
-                    camio_2 = randInt(0, ((GasolinaState.centros.size())-1)); 
+                    camio_2 = randInt(0, numero_camions-1); 
                 } while (camio_1 == camio_2); 
                 if (new_state.swap(camio_1,camio_2)) {
                     StringBuffer S = new StringBuffer();
@@ -124,7 +125,7 @@ public class GasolinaSuccessorFunction2 implements SuccessorFunction {
                     retval.add(new Successor(S.toString(), new_state));
                 }
                 else { //intentar laltre operacio
-                    int gasolinera = randInt(0, ((GasolinaState.gas.size())-1)); 
+                    int gasolinera = randInt(0, numero_gasolineras-1); 
                     if (new_state.addGasolinera(camio_1,gasolinera)) {
                         StringBuffer S = new StringBuffer();
                         S.append("s'ha afegit la gasolinera " + gasolinera + " al camió " + camio_1 + ". Beneficis: " + new_state.beneficis);
@@ -147,10 +148,10 @@ public class GasolinaSuccessorFunction2 implements SuccessorFunction {
 
             if (tipus_metode == 0) {
                 do {
-                    camio_1 =  randInt(0, ((GasolinaState.centros.size())-1)); 
-                    gasolinera = randInt(0, (GasolinaState.gas.size()-1)); 
+                    camio_1 =  randInt(0, numero_camions-1); 
+                    gasolinera = randInt(0, numero_gasolineras-1); 
                     do {
-                        camio_2 = randInt(0, ((GasolinaState.centros.size())-1)); 
+                        camio_2 = randInt(0, numero_camions-1); 
                     } while (camio_1 == camio_2); 
                     if (new_state.addGasolinera(camio_1,gasolinera)) {
                         StringBuffer S = new StringBuffer();
@@ -171,10 +172,10 @@ public class GasolinaSuccessorFunction2 implements SuccessorFunction {
 
             else if (tipus_metode == 1) {
                 do {
-                    camio_1 =  randInt(0, ((GasolinaState.centros.size())-1)); 
-                    gasolinera = randInt(0, (GasolinaState.gas.size()-1)); 
+                    camio_1 =  randInt(0, numero_camions-1); 
+                    gasolinera = randInt(0, numero_gasolineras-1); 
                     do {
-                        camio_2 = randInt(0, ((GasolinaState.centros.size())-1)); 
+                        camio_2 = randInt(0, numero_camions-1); 
                     } while (camio_1 == camio_2); 
                     if (new_state.swap(camio_1,camio_2)) {
                         StringBuffer S = new StringBuffer();
