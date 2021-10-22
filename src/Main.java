@@ -142,7 +142,7 @@ public class Main {
         try {
             Problem problem =  new Problem(state,new GasolinaSuccessorFunction2(), new GasolinaGoalTest(),new GasolinaHeuristic());
             SimulatedAnnealingSearch search =  new SimulatedAnnealingSearch(2000,100,5,0.001);    //QUE NUMEROS PONEMOS?
-            //search.traceOn();
+            search.traceOn();
             SearchAgent agent = new SearchAgent(problem,search);
             
             System.out.println();
