@@ -3,7 +3,6 @@ import java.util.ArrayList;
 import java.util.List;
 import aima.search.framework.SuccessorFunction;
 import aima.search.framework.Successor;
-import java.util.Random;
 
 
 //SIMULATED ALEANNING
