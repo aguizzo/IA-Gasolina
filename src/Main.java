@@ -1,7 +1,3 @@
-import IA.Gasolina.CentrosDistribucion;
-import IA.Gasolina.Distribucion;
-import IA.Gasolina.Gasolineras;
-import IA.Gasolina.Gasolinera;
 import IAGas.*;
 
 import aima.search.informed.HillClimbingSearch;
