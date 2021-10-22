@@ -93,7 +93,7 @@ public class Main {
                 long timeStart = System.currentTimeMillis();
                 GasolinaHillClimbingSearch(state);
                 long timeEstimated = System.currentTimeMillis() - timeStart; 
-                System.out.println("Execution Time: " + (timeEstimated/1000) + " seconds");
+                System.out.println("Execution Time: " + (timeEstimated/1000.0) + " seconds");
             }
 
             else if (operation == 2) {
@@ -103,7 +103,7 @@ public class Main {
                 long timeStart = System.currentTimeMillis();
                 GasolinaSimulatedAnnealingSearch(state);
                 long timeEstimated = System.currentTimeMillis() - timeStart; 
-                System.out.println("Execution Time: " + (timeEstimated/1000) + " seconds");
+                System.out.println("Execution Time: " + (timeEstimated/1000.0) + " seconds");
             }
             
 
