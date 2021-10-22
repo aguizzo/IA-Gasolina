@@ -28,7 +28,7 @@ public class GasolinaSuccessorFunction2 implements SuccessorFunction {
                 do {
                     camio_1 =  GasolinaState.randInt(0, (GasolinaState.centros.size()-1)); 
                     gasolinera = GasolinaState.randInt(0, (GasolinaState.gas.size()-1)); 
-                } while (!new_state.addGasolinera(camio_1,gasolinera)); 
+                } while (!(new_state.addGasolinera(camio_1,gasolinera))); 
 
                 StringBuffer S = new StringBuffer();
                 S.append("s'ha afegit la gasolinera " + gasolinera + " al camió " + camio_1 + ". Beneficis: " + new_state.beneficis);
@@ -44,11 +44,11 @@ public class GasolinaSuccessorFunction2 implements SuccessorFunction {
                     do {
                         camio_2 = GasolinaState.randInt(0, (GasolinaState.centros.size()-1)); 
                     } while (camio_1 == camio_2); 
-                } while (!new_state.swap(camio_1,camio_2)); 
+                } while (!(new_state.swap(camio_1,camio_2))); 
 
-                    StringBuffer S = new StringBuffer();
-                    S.append("s'ha fet swap entre el ultim viatge del camió " + camio_1 + " i el ultim del camió " + camio_2 + ". Beneficis: " + new_state.beneficis);
-                    retval.add(new Successor(S.toString(), new_state));
+                StringBuffer S = new StringBuffer();
+                S.append("s'ha fet swap entre el ultim viatge del camió " + camio_1 + " i el ultim del camió " + camio_2 + ". Beneficis: " + new_state.beneficis);
+                retval.add(new Successor(S.toString(), new_state));
             }
 
 
@@ -197,33 +197,6 @@ public class GasolinaSuccessorFunction2 implements SuccessorFunction {
 
         return retval; 
     }
-
-
-
-
-
-
-
-
-
-
-
-    /*
-    private void añadir_gasolinera_aleatoria_compatible (int camion, GasolinaState new_state, ArrayList<Successor> retval) {
-        Random myRandom=new Random();
-        int gasolinera = myRandom.nextInt(GasolinaState.gas.size());
-
-        if (new_state.addGasolinera(camion,gasolinera)) {
-            StringBuffer S = new StringBuffer();
-            S.append("s'ha afegit la gasolinera " + gasolinera + " al camió " + camion + ". Beneficis: " + new_state.beneficis);
-            retval.add(new Successor(S.toString(), new_state));
-        }
-
-        else {
-            añadir_gasolinera_aleatoria_compatible(camion, new_state, retval);
-        }
-    }
-    */
 
 
 
