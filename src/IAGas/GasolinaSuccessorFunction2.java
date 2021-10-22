@@ -11,23 +11,74 @@ public class GasolinaSuccessorFunction2 implements SuccessorFunction {
     public List getSuccessors(Object state) {
         ArrayList<Successor> retval = new ArrayList<>();
         GasolinaState board = (GasolinaState) state;
-        Random myRandom=new Random();
 
         GasolinaState new_state = new GasolinaState(board);
 
-        int camion = myRandom.nextInt(GasolinaState.centros.size()); 
+        int opcio = GasolinaState.opcio_s_annealing; 
 
-        //añadir_gasolinera_aleatoria_compatible(camion, new_state, retval);  Laltre opcio, en que llavors de buscar un camio i gas aleatories, intentem primer buscar gasolineres aleatories compatibles amb el camio que hem elegit de forma aleatoria
+        //Es tria de forma random si es fa add o swap. LLavors es tria de forma random un camio i gas (o camio i camio)
+        //Si no es pot realitzar loperacio desitjada per aquests dos, llavors es tria un altre camio i gasolinera randoms per fer aquesta operacio. 
+        if (opcio == 1) {
+            int tipus_metode = GasolinaState.randInt(0, 1); // 0 = add    1 = swap
+
+            int camio_1 = GasolinaState.randInt(0, (GasolinaState.centros.size()-1)); 
 
 
 
-        return retval;
+        }
 
+
+        //Igual que la opcio 1, pero si no es pot fer la operacio pel camio i gas triats, no es fa res
+        else if (opcio == 2) {
+            int tipus_metode = GasolinaState.randInt(0, 1); // 0 = add    1 = swap
+
+            int camio_1 = GasolinaState.randInt(0, (GasolinaState.centros.size()-1)); 
+
+            if (tipus_metode == 0) {
+                int gasolinera = GasolinaState.randInt(0, (GasolinaState.gas.size()-1)); 
+                if (new_state.addGasolinera(camio_1,gasolinera)) {
+                    StringBuffer S = new StringBuffer();
+                    S.append("s'ha afegit la gasolinera " + gasolinera + " al camió " + camio_1 + ". Beneficis: " + new_state.beneficis);
+                    retval.add(new Successor(S.toString(), new_state));
+                }
+            }
+
+            else if (tipus_metode == 1) {
+                int camio_2 = GasolinaState.randInt(0, (GasolinaState.centros.size()-1)); 
+                if (new_state.swap(camio_1,camio_2)) {
+                    StringBuffer S = new StringBuffer();
+                    S.append("s'ha fet swap entre el ultim viatge del camió " + camio_1 + " i el ultim del camió " + camio_2 + ". Beneficis: " + new_state.beneficis);
+                    retval.add(new Successor(S.toString(), new_state));
+                }
+            }
+        }
+
+       
+        //Primer es tria un camio i gas random
+        //Lavors es tria de forma random si es fa operacio add o swap. Si no es pot fer la triada es fa laltre
+        //En cas que no es pugui fer cap de les dos, es tria un altre camio i gas randoms
+        else if (opcio == 3) {
+
+        }
+
+
+        //Igual que la opcio 3, pero si no es pot fer cap de les dos operacions, llavors no es fa res mes
+        else if (opcio == 4) {
+
+        }
+
+
+        return retval; 
     }
 
 
-    private void buscar_gasolinera_camio_aleatoris_compatibles
-    //...
+
+
+
+
+
+
+
 
 
     /*

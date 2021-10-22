@@ -72,7 +72,7 @@ public class Main {
             }
                 System.out.println("You've chosed " + number_trucks + " number of trucks per distribution center");
 
-            //First state creation
+            //state creation
             GasolinaState state = new GasolinaState(number_trucks, seed, explicit_centers, explicit_gas_stations, do_random); 
 
 
@@ -95,6 +95,9 @@ public class Main {
             }
 
             else if (operation == 2) {
+                System.out.println("Choose one of the four options with which the successor function is able to choose new states with S annealing: 1, 2, 3 o or 4 ");
+                int opcio = input.nextInt(); 
+                GasolinaState.opcio_s_annealing = opcio;  
                 GasolinaSimulatedAnnealingSearch(state);
             }
 

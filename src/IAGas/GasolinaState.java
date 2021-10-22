@@ -29,6 +29,8 @@ public class GasolinaState {
     List<List<Integer>> peticions;
     List<List<int[]>> state; // = //camions, recorregut (màxim 5 viatges en un dia)
 
+    public static int opcio_s_annealing; 
+
 
 
     //Constructora por defecto
@@ -327,17 +329,20 @@ public class GasolinaState {
     }
     
 
-    //random int
+    //random int entre min inclusive i max inclusive
     public static int randInt(int min, int max){
         Random rand = new Random();
-        int randomNum = rand.nextInt(max-min)+min;
+        int randomNum = rand.nextInt(max-min + 1)+min;
         return randomNum;
     }
 
 
+
+    /* No necessari
     public boolean isGoalState() { //Always returns false in local search
         return false; 
     }
+    */
 
 
     //About imprimir
