@@ -9,7 +9,7 @@ import aima.search.framework.Successor;
 
 //SIMULATED ALEANNING
 public class GasolinaSuccessorFunction2 implements SuccessorFunction {
-    public List getSuccessors(Object state) {
+    public ArrayList<Successor> getSuccessors(Object state) {
         ArrayList<Successor> retval = new ArrayList<>();
         GasolinaState board = (GasolinaState) state;
         GasolinaState new_state = new GasolinaState(board);

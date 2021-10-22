@@ -5,7 +5,7 @@ import aima.search.framework.SuccessorFunction;
 import aima.search.framework.Successor;
 
 public class GasolinaSuccessorFunction1 implements SuccessorFunction {
-    public List getSuccessors(Object state) {
+    public ArrayList<Successor> getSuccessors(Object state) {
         ArrayList<Successor> retval = new ArrayList<>();
         GasolinaState board = (GasolinaState) state;
 
