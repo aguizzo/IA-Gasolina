@@ -131,9 +131,11 @@ public class Main {
 
                 pw.println("Steps" + "," + "stiter" + "," + "k" + "," + "lamb" + "," + "profits" + "," + "execution time");
 
-                for (int steps_current = 200; steps_current <= 10000; steps_current += 200) {
-                    for (int stiter_current = 1; stiter_current <= steps_current; stiter_current += 10) {
-                        for (int k_current = 1; k_current <= 100; k_current++) {
+                for (int steps_current = 500; steps_current <= 10000; steps_current += 500) {
+                    int stiter_increment = 1; 
+                    for (int stiter_current = 1; stiter_current <= steps_current; stiter_current += stiter_increment) {
+                        int k_increment = 1; 
+                        for (int k_current = 1; k_current <= 1000; k_current += k_increment) {
                             for (double lamb_current = 0.000000001; lamb_current <= 10; lamb_current *= 10) {
                                 GasolinaState state_current = new GasolinaState(state); 
                                 long timeStart = System.currentTimeMillis();
@@ -142,6 +144,27 @@ public class Main {
                                 pw.println(steps_current + "," + stiter_current + "," + k_current + "," + lamb_current + "," + profits + "," + timeEstimated);
                                 System.out.println("Steps = " + steps_current + ", " + "stiter = " + stiter_current + ", " + "k = " + k_current + ", " + "lamb = " + lamb_current + " DONE");
                             }
+                            if (k_current == 5) {
+                                k_increment = 5; 
+                            }
+                            else if (k_current == 10) {
+                                k_increment = 40;
+                            }
+                            else if (k_current == 50) {
+                                k_increment = 50; 
+                            }
+                        }
+                        if (stiter_current == 1) {
+                            stiter_increment = 9; 
+                        }
+                        else if (stiter_current == 10) {
+                            stiter_increment = 40; 
+                        }
+                        else if (stiter_current == 50) {
+                            stiter_increment = 50; 
+                        }
+                        else if (stiter_current == 100) {
+                            stiter_increment = 100; 
                         }
                     }
                 }
