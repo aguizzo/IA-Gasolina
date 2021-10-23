@@ -76,6 +76,9 @@ public class Main {
             //state creation
             GasolinaState state = new GasolinaState(number_trucks, seed, explicit_centers, explicit_gas_stations, do_random); 
 
+            System.out.println(GasolinaState.numero_centros + " centers have been created.");
+            System.out.println(GasolinaState.numero_gasolineras + " gas stations have been created.");
+
 
             //Initial solution
             System.out.println("If you want to use the simple initial solution system, type: 1.");
@@ -121,23 +124,30 @@ public class Main {
                 System.out.println("Choose one of the four options with which the successor function is able to choose new states with S annealing: 1, 2, 3 o or 4 ");
                 int opcio = input.nextInt(); 
                 GasolinaState.opcio_s_annealing = opcio;  
-
-                FileWriter fw = new FileWriter("file.csv", true); 
+                String filename = "seed = " + seed + ", " + "centers = " + GasolinaState.numero_centros + ", " + "gas stations = " + GasolinaState.numero_gasolineras + ".csv"; 
+                FileWriter fw = new FileWriter(filename, true); 
                 BufferedWriter bw = new BufferedWriter(fw);
                 PrintWriter pw = new PrintWriter(bw); 
 
-                pw.println(pw);
-
+                pw.println("Steps" + "," + "stiter" + "," + "k" + "," + "lamb" + "," + "profits" + "," + "execution time");
 
                 for (int steps_current = 200; steps_current <= 10000; steps_current += 200) {
                     for (int stiter_current = 1; stiter_current <= steps_current; stiter_current += 10) {
                         for (int k_current = 1; k_current <= 100; k_current++) {
                             for (double lamb_current = 0.000000001; lamb_current <= 10; lamb_current *= 10) {
-
+                                GasolinaState state_current = new GasolinaState(state); 
+                                long timeStart = System.currentTimeMillis();
+                                int profits = GasolinaSimulatedAnnealingSearch_not_print_return_profits(state_current, steps_current, stiter_current, k_current, lamb_current); 
+                                double timeEstimated = (System.currentTimeMillis() - timeStart)/1000.0; 
+                                pw.println(steps_current + "," + stiter_current + "," + k_current + "," + lamb_current + "," + profits + "," + timeEstimated);
+                                System.out.println("Steps = " + steps_current + ", " + "stiter = " + stiter_current + ", " + "k = " + k_current + ", " + "lamb = " + lamb_current + " DONE");
                             }
                         }
                     }
                 }
+
+                pw.flush();
+                pw.close();
 
             }
             
@@ -210,6 +220,43 @@ public class Main {
         catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    //Same as the other S A function, but instead of printing information, it returns a value, which are the profits
+    private static int GasolinaSimulatedAnnealingSearch_not_print_return_profits (GasolinaState state, int steps, int stiter, int k, double lamb) {
+        //System.out.println("\nTSP Simulated Annealing  -->");
+
+        try {
+
+            Problem problem =  new Problem(state,new GasolinaSuccessorFunction2(), new GasolinaGoalTest(),new GasolinaHeuristic());
+            SimulatedAnnealingSearch search =  new SimulatedAnnealingSearch(steps,stiter,k,lamb);   
+            //search.traceOn();
+            SearchAgent agent = new SearchAgent(problem,search);
+            
+            //System.out.println();
+            //printActions(agent.getActions());
+            //printInstrumentation(agent.getInstrumentation());
+
+            //System.out.println("\n" + ((AzamonEstado) search.getGoalState()).toString());
+            //System.out.println("\n" + ((AzamonEstado) search.getGoalState()).correspondenciasToString());
+
+            //System.out.println("Finished");
+
+
+
+            //System.out.println();
+            GasolinaState last = (GasolinaState) search.getGoalState();
+            //System.out.println("Last state: ");
+            //last.imprimirState(); 
+
+            return last.beneficis; 
+
+        } 
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return -1; 
     }
 
     private static void printInstrumentation(Properties properties) {

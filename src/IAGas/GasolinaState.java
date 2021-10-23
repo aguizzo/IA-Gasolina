@@ -23,7 +23,7 @@ public class GasolinaState {
     private static int [][] distanciaCentroGasolinera; //Distancia de cada centre (de cada camio) a cada gasolinera
     private static int [][] distanciasGasGas; //Distancia de cada gasolinera a cada gasolinera
     
-    int beneficis = 0;
+    public int beneficis = 0;
     int [][]estatCamions; //Km restants; viatges restants; diposit (0 = buit, 1 = mig, 2 = complet);
 
     List<List<Integer>> peticions;
@@ -31,12 +31,13 @@ public class GasolinaState {
 
     public static int opcio_s_annealing; 
 
+    public static int numero_centros; 
+    public static int numero_gasolineras; 
+
 
 
     //Constructora por defecto
     public GasolinaState (int number_trucks, int seed, int explicit_centers, int explicit_gas_stations, boolean random) {
-        int numero_centros; 
-        int numero_gasolineras; 
         if (random) {
             numero_centros = randInt(10, 100); 
             numero_gasolineras = randInt(10, 100); 
@@ -47,10 +48,6 @@ public class GasolinaState {
             numero_gasolineras = explicit_gas_stations; 
 
         }
-
-        System.out.println(numero_centros + " centers have been created.");
-        System.out.println(numero_gasolineras + " gas stations have been created.");
-
         centros = new CentrosDistribucion(numero_centros, number_trucks, seed);
         gas = new Gasolineras(numero_gasolineras, seed);
 
