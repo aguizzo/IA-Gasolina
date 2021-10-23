@@ -211,7 +211,7 @@ public class GasolinaState {
     }
 
     private void camio2Centro(int i, int j) {
-        if (estatCamions[i][1] == 1 || estatCamions[i][2] == 0) { // Ha de tornar al centre de distribució
+        if (estatCamions[i][2] == 0) { // Ha de tornar al centre de distribució
             beneficis -= (distanciaCentroGasolinera[i][j] * costeKm);
             estatCamions[i][0] -= (distanciaCentroGasolinera[i][j]);
             estatCamions[i][1] -= 1;
