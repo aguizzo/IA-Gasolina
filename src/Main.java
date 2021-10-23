@@ -135,7 +135,7 @@ public class Main {
                     int stiter_increment = 1; 
                     for (int stiter_current = 1; stiter_current <= steps_current; stiter_current += stiter_increment) {
                         int k_increment = 1; 
-                        for (int k_current = 1; k_current <= 1000; k_current += k_increment) {
+                        for (int k_current = 1; k_current <= 5000; k_current += k_increment) {
                             for (double lamb_current = 0.000000001; lamb_current <= 10; lamb_current *= 10) {
                                 GasolinaState state_current = new GasolinaState(state); 
                                 long timeStart = System.currentTimeMillis();
@@ -152,6 +152,12 @@ public class Main {
                             }
                             else if (k_current == 50) {
                                 k_increment = 50; 
+                            }
+                            else if (k_current == 500) {
+                                k_increment = 500; 
+                            }
+                            else if (k_current == 1000) {
+                                k_increment = 4000; 
                             }
                         }
                         if (stiter_current == 1) {
