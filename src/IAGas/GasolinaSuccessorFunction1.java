@@ -21,6 +21,21 @@ public class GasolinaSuccessorFunction1 implements SuccessorFunction {
                 }
             }
         }
+
+
+        for (int i = 0; i < GasolinaState.centros.size(); ++i) {
+            for (int j = i + 1; j < GasolinaState.centros.size(); ++j) {
+                GasolinaState new_state = new GasolinaState(board);
+                if (new_state.swap(i,j)) {
+                    StringBuffer S = new StringBuffer();
+                    S.append("s'ha fet swap entre el ultim viatge del camió " + i + " i el ultim del camió " + j + ". Beneficis: " + new_state.beneficis);
+                    retval.add(new Successor(S.toString(), new_state));
+                }
+            }
+        }
+
+
+
         return retval;
     }
 }
