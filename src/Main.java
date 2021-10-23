@@ -6,6 +6,10 @@ import aima.search.framework.Problem;
 import aima.search.framework.Search;
 import aima.search.framework.SearchAgent;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.PrintWriter;
+import java.nio.Buffer;
 import java.util.*;
 
 public class Main {
@@ -13,13 +17,14 @@ public class Main {
 
         System.out.println("For Hill Climbing, type: 1"); 
         System.out.println("For Simulated Annealing, type: 2");
+        System.out.println("If you want Simulated Annealing, and compare all the S.A parameters into a CSV file, type: 3");
         System.out.println("If you want to exit the program, type any other number");  
 
         Scanner input = new Scanner(System.in); 
 
         int operation = input.nextInt(); 
 
-        if (operation == 1 || operation == 2) {
+        if (operation == 1 || operation == 2 || operation == 3) {
 
             System.out.println("If you want the number of centers and gas stations to be created randomly, type: 1"); 
             System.out.println("If not, type: 0"); 
@@ -31,27 +36,27 @@ public class Main {
             int explicit_gas_stations; 
             boolean do_random; 
 
+            //SEED
+            System.out.println("Introduce a seed number, or '0', if you want a random seed:"); 
+            seed = input.nextInt(); 
+            if (seed == 0) {
+                Random random = new Random(); 
+                seed = random.nextInt(); 
+                System.out.println("You've chosed a random seed"); 
+            }
+            else {
+                System.out.println("You've chosed the seed: " + seed); 
+            }
+
             if (is_random == 1) {
                 do_random = true; 
                 explicit_centers = 0; 
                 explicit_gas_stations = 0; 
-                //SEED
-                System.out.println("Introduce a seed number, or '0', if you want a random seed:"); 
-                seed = input.nextInt(); 
-                if (seed == 0) {
-                    Random random = new Random(); 
-                    seed = random.nextInt(); 
-                    System.out.println("You've chosed a random seed"); 
-                }
-                else {
-                    System.out.println("You've chosed the seed: " + seed); 
-                }
-
-                }
+                
+            }
 
             else {
                 do_random = false; 
-                seed = 0; 
                 System.out.println("Introduce the exact number of centers you want to create on the simulation"); 
                 explicit_centers = input.nextInt(); 
 
@@ -86,14 +91,54 @@ public class Main {
             }
 
             if (operation == 1) {
+                long timeStart = System.currentTimeMillis();
                 GasolinaHillClimbingSearch(state);
+                long timeEstimated = System.currentTimeMillis() - timeStart; 
+                System.out.println("Execution Time: " + (timeEstimated/1000.0) + " seconds");
             }
 
             else if (operation == 2) {
                 System.out.println("Choose one of the four options with which the successor function is able to choose new states with S annealing: 1, 2, 3 o or 4 ");
                 int opcio = input.nextInt(); 
                 GasolinaState.opcio_s_annealing = opcio;  
-                GasolinaSimulatedAnnealingSearch(state);
+                int steps, stiter, k; 
+                double lamb;  
+                System.out.println("Choose the parameter 'steps'. Type a number");
+                steps = input.nextInt(); 
+                System.out.println("Choose the parameter 'stiter'. Type a number");
+                stiter = input.nextInt(); 
+                System.out.println("Choose the parameter 'k'. Type a number");
+                k = input.nextInt(); 
+                System.out.println("Choose the parameter 'lamb'. Type a number (double) ");
+                lamb = input.nextDouble(); 
+                long timeStart = System.currentTimeMillis();
+                GasolinaSimulatedAnnealingSearch(state, steps, stiter, k, lamb);
+                long timeEstimated = System.currentTimeMillis() - timeStart; 
+                System.out.println("Execution Time: " + (timeEstimated/1000.0) + " seconds");
+            }
+
+            else if (operation == 3) {
+                System.out.println("Choose one of the four options with which the successor function is able to choose new states with S annealing: 1, 2, 3 o or 4 ");
+                int opcio = input.nextInt(); 
+                GasolinaState.opcio_s_annealing = opcio;  
+
+                FileWriter fw = new FileWriter("file.csv", true); 
+                BufferedWriter bw = new BufferedWriter(fw);
+                PrintWriter pw = new PrintWriter(bw); 
+
+                pw.println(pw);
+
+
+                for (int steps_current = 200; steps_current <= 10000; steps_current += 200) {
+                    for (int stiter_current = 1; stiter_current <= steps_current; stiter_current += 10) {
+                        for (int k_current = 1; k_current <= 100; k_current++) {
+                            for (double lamb_current = 0.000000001; lamb_current <= 10; lamb_current *= 10) {
+
+                            }
+                        }
+                    }
+                }
+
             }
             
 
@@ -112,8 +157,7 @@ public class Main {
         System.out.println("\nTSP HillClimbing  -->");
 
         try {
-            long timeStart = System.currentTimeMillis();
-
+            
             Problem problem =  new Problem(state,new GasolinaSuccessorFunction1(), new GasolinaGoalTest(),new GasolinaHeuristic());
             Search search =  new HillClimbingSearch();
             SearchAgent agent = new SearchAgent(problem,search);
@@ -126,9 +170,6 @@ public class Main {
             //System.out.println("\n" + ((AzamonEstado) search.getGoalState()).correspondenciasToString());
 
             System.out.println("Finished");
-
-            long timeEstimated = System.currentTimeMillis() - timeStart; 
-            System.out.println("Execution Time: " + (timeEstimated/1000.0) + " seconds");
             
             System.out.println();
             GasolinaState last = (GasolinaState) search.getGoalState();
@@ -140,14 +181,13 @@ public class Main {
         }
     }
 
-    private static void GasolinaSimulatedAnnealingSearch (GasolinaState state) {
+    private static void GasolinaSimulatedAnnealingSearch (GasolinaState state, int steps, int stiter, int k, double lamb) {
         System.out.println("\nTSP Simulated Annealing  -->");
 
         try {
-            long timeStart = System.currentTimeMillis();
 
             Problem problem =  new Problem(state,new GasolinaSuccessorFunction2(), new GasolinaGoalTest(),new GasolinaHeuristic());
-            SimulatedAnnealingSearch search =  new SimulatedAnnealingSearch(2000,100,5,0.001);    //QUE NUMEROS PONEMOS?
+            SimulatedAnnealingSearch search =  new SimulatedAnnealingSearch(steps,stiter,k,lamb);   
             search.traceOn();
             SearchAgent agent = new SearchAgent(problem,search);
             
@@ -160,8 +200,7 @@ public class Main {
 
             System.out.println("Finished");
 
-            long timeEstimated = System.currentTimeMillis() - timeStart; 
-            System.out.println("Execution Time: " + (timeEstimated/1000.0) + " seconds");
+
 
             System.out.println();
             GasolinaState last = (GasolinaState) search.getGoalState();
@@ -190,5 +229,5 @@ public class Main {
         }
     }
 
-
 }
+
