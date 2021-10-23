@@ -166,6 +166,9 @@ public class Main {
                         else if (stiter_current == 100) {
                             stiter_increment = 100; 
                         }
+                        else if (stiter_current == 500) {
+                            stiter_increment = 500; 
+                        }
                     }
                 }
 
