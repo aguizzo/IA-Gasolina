@@ -84,11 +84,12 @@ public class Main {
             System.out.println("If you want to use the simple initial solution system, type: 1.");
             System.out.println("If you want to use the comlex initial solution system, type: 2.");
 
-            if (input.nextInt() == 1) {
+            int complexity = input.nextInt();
+            if (complexity == 1) {
                 state.SimpleInitialSolution();
                 System.out.println("You've chosed the simple initial solution system");
-            } 
-            else if (input.nextInt() ==  2) {
+            }
+            else if (complexity ==  2) {
                 state.ComplexInitialSolution();
                 System.out.println("You've chosed the complex initial solution system");
             }
