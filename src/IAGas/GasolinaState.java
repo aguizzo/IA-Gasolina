@@ -34,6 +34,8 @@ public class GasolinaState {
     public static int numero_centros; 
     public static int numero_gasolineras; 
 
+    public static int tipus_heuristica; 
+
 
 
     //Constructora por defecto
@@ -110,6 +112,12 @@ public class GasolinaState {
 
     public double heuristic() {
         return -beneficis;
+    }
+
+
+    //heuristica que tambe te en compte amortitzar els costos pels propers dies, anant primer a les peticions que ja porten molts dies
+    public double heuristic_2() {
+        
     }
     
     

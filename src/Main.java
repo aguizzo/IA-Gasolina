@@ -93,6 +93,11 @@ public class Main {
                 System.out.println("You've chosed the complex initial solution system");
             }
 
+
+            System.out.println("If you want to use the first heuristic, type: 1");
+            System.out.println("If you want to use the second heuristic, type: 2");
+            GasolinaState.tipus_heuristica = input.nextInt(); 
+
             if (operation == 1) {
                 long timeStart = System.currentTimeMillis();
                 GasolinaHillClimbingSearch(state);
