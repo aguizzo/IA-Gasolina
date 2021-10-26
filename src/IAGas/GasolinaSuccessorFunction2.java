@@ -140,13 +140,22 @@ public class GasolinaSuccessorFunction2 implements SuccessorFunction {
 
         //Igual que la opció 1, pero si la operacio no es pot fer, abans de triar un altre camio i gas (o camio i camio), s'intenta fer laltre operacio. Aixo tambe es fa pels successius camions i gasolineres (o camions i camions)
         else if (opcio == 4) {
-            int tipus_metode = randInt(0, 1); // 0 = add    1 = swap
+            int tipus_metode = randInt(0, 100); // 0 = add    1 = swap
 
             int camio_1; 
             int camio_2; 
-            int gasolinera; 
+            int gasolinera;
 
-            if (tipus_metode == 0) {
+            double addsDisp = board.addsDisponibles();
+            double swapsDisp = board.swapsDisponibles();
+            double totalDisp = (addsDisp + swapsDisp);
+            double percentatgeAdds;
+            if (totalDisp != 0) percentatgeAdds = (addsDisp/(addsDisp + swapsDisp)) * 100;
+            else percentatgeAdds = 50;
+            
+
+
+            if (tipus_metode <= percentatgeAdds) {
                 do {
                     camio_1 =  randInt(0, numero_camions-1); 
                     gasolinera = randInt(0, numero_gasolineras-1); 
@@ -157,7 +166,7 @@ public class GasolinaSuccessorFunction2 implements SuccessorFunction {
                         StringBuffer S = new StringBuffer();
                         S.append("s'ha afegit la gasolinera " + gasolinera + " al camió " + camio_1 + ". Beneficis: " + new_state.beneficis);
                         retval.add(new Successor(S.toString(), new_state));
-                        break; 
+                        break;
                     }
                     else if (new_state.swap(camio_1,camio_2)) {
                         StringBuffer S = new StringBuffer();
@@ -170,10 +179,10 @@ public class GasolinaSuccessorFunction2 implements SuccessorFunction {
 
             }
 
-            else if (tipus_metode == 1) {
+            else {
                 do {
                     camio_1 =  randInt(0, numero_camions-1); 
-                    gasolinera = randInt(0, numero_gasolineras-1); 
+                    gasolinera = randInt(0, numero_gasolineras-1);
                     do {
                         camio_2 = randInt(0, numero_camions-1); 
                     } while (camio_1 == camio_2); 

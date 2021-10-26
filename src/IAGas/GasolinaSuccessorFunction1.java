@@ -9,7 +9,6 @@ public class GasolinaSuccessorFunction1 implements SuccessorFunction {
         ArrayList<Successor> retval = new ArrayList<>();
         GasolinaState board = (GasolinaState) state;
 
-
         // Per a cada camió. fer un estat per a totes les gasolineres.
         for (int i = 0; i < GasolinaState.centros.size(); ++i) {
             for (int j = 0; j < GasolinaState.gas.size(); ++j) {
@@ -24,7 +23,7 @@ public class GasolinaSuccessorFunction1 implements SuccessorFunction {
 
 
         for (int i = 0; i < GasolinaState.centros.size(); ++i) {
-            for (int j = i + 1; j < GasolinaState.centros.size(); ++j) {
+            for (int j = 0; j < GasolinaState.centros.size(); ++j) {
                 GasolinaState new_state = new GasolinaState(board);
                 if (new_state.swap(i,j)) {
                     StringBuffer S = new StringBuffer();
