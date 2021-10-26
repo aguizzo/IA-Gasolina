@@ -91,21 +91,25 @@ public class GasolinaState {
 
 
     public void SimpleInitialSolution() {
-        //centros = new CentrosDistribucion(10, 1, 1234);               //Aixo ja ho fa la constructora per defecte
-        //gas = new Gasolineras(100, 1234);                             //Aixo ja ho fa la constructora per defecte
-        //distanciaCentroGasolinera = distanciaCentGas(centros, gas);   //Aixo ja ho fa la constructora per defecte
-        //distanciasGasGas = distanciasGs(gas);                         //Aixo ja ho fa la constructora per defecte
-
-        //estatCamions = calcularEstatCamions();                        //Aixo ja ho fa la constructora per defecte
-        //peticions = calcularPeticions();                              //Aixo ja ho fa la constructora per defecte
-        //state = calcularState();                                      //Aixo ja ho fa la constructora per defecte
+        for (int i = 0; i < centros.size(); ++i) {                                  //Aixo es que abans feia la complex
+            for (int j = 0; j < gas.size() && estatCamions[i][1] > 0; j++) {
+                addGasolinera(i,j);
+            }
+        }
     }
     
 
-    public void ComplexInitialSolution() {
-        for (int i = 0; i < centros.size(); ++i) {
-            for (int j = 0; j < gas.size() && estatCamions[i][1] > 0; j++) {
-                addGasolinera(i,j);
+    public void ComplexInitialSolution() { //Intentem fer totes aquelles peticions que tinguin 3 o mes dies
+        for (int i = 0; i < gas.size(); i++) {
+            if (peticions.get(i).size() == 1) {
+
+            }
+            else if (peticions.get(i).size() == 2) {
+
+            }
+
+            else if (peticions.get(i).size() == 3) {
+
             }
         }
     }
@@ -213,6 +217,19 @@ public class GasolinaState {
             }
         }
         return false;
+    }
+
+    public boolean nomes_comprova_add(int i, int j) {
+        if ((state.get(i).isEmpty() || state.get(i).get(state.get(i).size()-1)[1] == -1) && estatCamions[i][1] > 0) {
+            if ((estatCamions[i][0]) - (distanciaCentroGasolinera[i][j] * 2) >= 0 && !peticions.get(j).isEmpty()) {
+                return true; 
+            }
+        }
+        else if (estatCamions[i][0] - distanciaCentroGasolinera[i][j] - distanciasGasGas[state.get(i).get(state.get(i).size()-1)[0]][j] >= 0 && !peticions.get(j).isEmpty() && estatCamions[i][1] > 0) {
+            return true; 
+        }
+
+        return false; 
     }
 
     private void camio2Centro(int i, int j) {
