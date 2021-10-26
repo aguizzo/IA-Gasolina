@@ -15,16 +15,7 @@ import java.util.*;
 public class Main {
     public static void main(String[] args) throws Exception {
 
-        GasolinaState state = new GasolinaState(1, 1234, 10, 100, false);
-        //state.ComplexInitialSolution();
-        GasolinaState.tipus_heuristica = 1;
-        GasolinaState.opcio_s_annealing = 4;
-        long timeStart = System.currentTimeMillis();
-        GasolinaHillClimbingSearch(state);
-        long timeEstimated = System.currentTimeMillis() - timeStart;
-        System.out.println("Execution Time: " + (timeEstimated/1000.0) + " seconds");
 
-        /*
         System.out.println("For Hill Climbing, type: 1"); 
         System.out.println("For Simulated Annealing, type: 2");
         System.out.println("If you want Simulated Annealing, and compare all the S.A parameters into a CSV file, type: 3");
@@ -209,7 +200,7 @@ public class Main {
             return; 
         }
 
-         */
+
 
     }
 

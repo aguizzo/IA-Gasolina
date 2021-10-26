@@ -24,6 +24,7 @@ public class GasolinaState {
     private static int [][] distanciasGasGas; //Distancia de cada gasolinera a cada gasolinera
     
     public int beneficis = 0;
+    public int beneficisTomorrow = 0;
     int [][]estatCamions; //Km restants; viatges restants; diposit (0 = buit, 1 = mig, 2 = complet);
 
     List<List<Integer>> peticions;
@@ -91,21 +92,25 @@ public class GasolinaState {
 
 
     public void SimpleInitialSolution() {
-        //centros = new CentrosDistribucion(10, 1, 1234);               //Aixo ja ho fa la constructora per defecte
-        //gas = new Gasolineras(100, 1234);                             //Aixo ja ho fa la constructora per defecte
-        //distanciaCentroGasolinera = distanciaCentGas(centros, gas);   //Aixo ja ho fa la constructora per defecte
-        //distanciasGasGas = distanciasGs(gas);                         //Aixo ja ho fa la constructora per defecte
-
-        //estatCamions = calcularEstatCamions();                        //Aixo ja ho fa la constructora per defecte
-        //peticions = calcularPeticions();                              //Aixo ja ho fa la constructora per defecte
-        //state = calcularState();                                      //Aixo ja ho fa la constructora per defecte
+        for (int i = 0; i < centros.size(); ++i) {                                  //Aixo es que abans feia la complex
+            for (int j = 0; j < gas.size() && estatCamions[i][1] > 0; j++) {
+                addGasolinera(i,j);
+            }
+        }
     }
     
 
-    public void ComplexInitialSolution() {
-        for (int i = 0; i < centros.size(); ++i) {
-            for (int j = 0; j < gas.size() && estatCamions[i][1] > 0; j++) {
-                addGasolinera(i,j);
+    public void ComplexInitialSolution() { //Intentem fer totes aquelles peticions que tinguin 3 o mes dies
+        for (int i = 0; i < gas.size(); i++) {
+            if (peticions.get(i).size() == 1) {
+
+            }
+            else if (peticions.get(i).size() == 2) {
+
+            }
+
+            else if (peticions.get(i).size() == 3) {
+
             }
         }
     }
@@ -117,7 +122,8 @@ public class GasolinaState {
 
     //heuristica que tambe te en compte amortitzar els costos pels propers dies, anant primer a les peticions que ja porten molts dies
     public double heuristic_2() {
-        return 0.0;
+        double bT = beneficisTomorrow*0.5;
+        return -beneficis-bT;
         
     }
 
@@ -234,6 +240,19 @@ public class GasolinaState {
             }
         }
         return false;
+    }
+
+    public boolean nomes_comprova_add(int i, int j) {
+        if ((state.get(i).isEmpty() || state.get(i).get(state.get(i).size()-1)[1] == -1) && estatCamions[i][1] > 0) {
+            if ((estatCamions[i][0]) - (distanciaCentroGasolinera[i][j] * 2) >= 0 && !peticions.get(j).isEmpty()) {
+                return true; 
+            }
+        }
+        else if (estatCamions[i][0] - distanciaCentroGasolinera[i][j] - distanciasGasGas[state.get(i).get(state.get(i).size()-1)[0]][j] >= 0 && !peticions.get(j).isEmpty() && estatCamions[i][1] > 0) {
+            return true; 
+        }
+
+        return false; 
     }
 
     private void camio2Centro(int i, int j) {
@@ -353,7 +372,21 @@ public class GasolinaState {
         }
         return false;
     }
-    
+
+    public boolean addTomorrow(int i, int j) {
+        if (!peticions.get(j).isEmpty()) {
+            int numPets = peticions.get(j).size() -1;
+            int b = precioDeposito;
+            if (peticions.get(j).get(numPets)+1 == 0) b *= 1.02;
+            else b *= (1 - (Math.pow(2, peticions.get(j).get(numPets)+1)) / 100);
+            beneficisTomorrow += b;
+            //System.out.println(beneficisTomorrow);
+            peticions.get(j).remove(numPets);
+            return true;
+        }
+        return false;
+    }
+
 
     //random int entre min inclusive i max inclusive
     public static int randInt(int min, int max){
@@ -362,18 +395,7 @@ public class GasolinaState {
         return randomNum;
     }
 
-    public boolean addTomorrow() {
 
-        return false;
-    }
-
-
-
-    /* No necessari
-    public boolean isGoalState() { //Always returns false in local search
-        return false; 
-    }
-    */
 
 
     //About imprimir
@@ -423,7 +445,14 @@ public class GasolinaState {
                 else System.out.println("El camion " + i + " ha ido a la gasolinera " + point);
             }
         }
-        System.out.println("beneficis: " +    beneficis);
+        int numP = 0;
+        for (int i = 0; i < gas.size(); ++i) {
+            numP += peticions.get(i).size();
+        }
+        System.out.println("beneficis: " + beneficis);
+        System.out.println("beneficis demà: " + beneficisTomorrow);
+        System.out.println("total: " + (beneficis+beneficisTomorrow));
+        //System.out.println("numP: " + numP);
     }
     
     //END About imprimir

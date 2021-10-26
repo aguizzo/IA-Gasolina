@@ -33,6 +33,17 @@ public class GasolinaSuccessorFunction1 implements SuccessorFunction {
             }
         }
 
+        for (int i = 0; i < GasolinaState.centros.size(); ++i) {
+            for (int j = 0; j < GasolinaState.gas.size(); ++j) {
+                GasolinaState new_state = new GasolinaState(board);
+                if (new_state.addTomorrow(i,j)) {
+                    StringBuffer S = new StringBuffer();
+                    S.append("s'ha afegit la gasolinera " + j + " al camió " + i + " demà. Beneficis: " + new_state.beneficis);
+                    retval.add(new Successor(S.toString(), new_state));
+                }
+            }
+        }
+
 
 
         return retval;
