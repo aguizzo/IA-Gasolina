@@ -102,16 +102,65 @@ public class GasolinaState {
 
     public void ComplexInitialSolution() { //Intentem fer totes aquelles peticions que tinguin 3 o mes dies
         for (int i = 0; i < gas.size(); i++) {
-            if (peticions.get(i).size() == 1) {
+            for (int j = 0; j < peticions.get(i).size(); j++) {  
+                if (peticions.get(i).get(j) >= 3) {
+                    Boolean trobat_almenys_un = false;
+                    //apuntem la distancia del camio mes petita
+                    int index_camio = -1; 
+                    int distancia_camio = -1; 
+                    for (int k = 0; k < centros.size(); k++) {
+                        if (nomes_comprova_add(k, i)) {
+                            if (!trobat_almenys_un) {
+                                trobat_almenys_un = true; 
+                                index_camio = k; 
 
+                                //calculem distancia fins gasolinera del camio actual
+                                if (state.get(k).isEmpty()) {
+                                    distancia_camio = distanciaCentroGasolinera[k][i]; 
+                                }
+                                else {
+                                    if (state.get(k).get(state.get(k).size()-1)[1] != -1) {
+                                        distancia_camio = distanciasGasGas[state.get(k).get(state.get(k).size()-1)[0]][i]; 
+                                    }
+                                    else {
+                                        distancia_camio = distanciaCentroGasolinera[k][i]; 
+                                    }
+                                }
+                                
+                            }
+                            else {
+
+                                //calculem distancia fins gasolinera del camio actual
+                                int distancia_camio_actual; 
+
+                                if (state.get(k).isEmpty()) {
+                                    distancia_camio_actual = distanciaCentroGasolinera[k][i]; 
+                                }
+                                else {
+                                    if (state.get(k).get(state.get(k).size()-1)[1] != -1) {
+                                        distancia_camio_actual = distanciasGasGas[state.get(k).get(state.get(k).size()-1)[0]][i]; 
+                                    }
+                                    else {
+                                        distancia_camio_actual = distanciaCentroGasolinera[k][i]; 
+                                    }
+                                }
+
+
+                                if (distancia_camio_actual < distancia_camio) {
+                                    index_camio = k;
+                                    distancia_camio = distancia_camio_actual; 
+                                }
+                            }
+                        }
+                    }
+
+                    if (trobat_almenys_un) {
+                        addGasolinera(index_camio, i); 
+                    }
+
+                }
             }
-            else if (peticions.get(i).size() == 2) {
 
-            }
-
-            else if (peticions.get(i).size() == 3) {
-
-            }
         }
     }
 
@@ -198,9 +247,9 @@ public class GasolinaState {
                     if (state.get(i).get(state.get(i).size()-1)[1] != -1) beneficis += (distanciaCentroGasolinera[i][state.get(i).get(state.get(i).size()-1)[0]] * costeKm);
                 }
                 int b = precioDeposito;
-                int numPets = peticions.get(j).size() -1;
-                if (peticions.get(j).get(numPets) == 0) b *= 1.02;
-                else b *= (1 - (Math.pow(2, peticions.get(j).get(numPets))) / 100);
+                int numPeticio = peticio_mes_dies(j); 
+                if (peticions.get(j).get(numPeticio) == 0) b *= 1.02;
+                else b *= (1 - (Math.pow(2, peticions.get(j).get(numPeticio))) / 100);
                 beneficis += b;
 
                 beneficis -= (distanciaCentroGasolinera[i][j] * costeKm);
@@ -208,9 +257,9 @@ public class GasolinaState {
                 estatCamions[i][2] -= 1;
                 int[]v = new int[2];
                 v[0] = j;
-                v[1] = peticions.get(j).get(numPets);
+                v[1] = peticions.get(j).get(numPeticio);
                 state.get(i).add(v);
-                peticions.get(j).remove(numPets);
+                peticions.get(j).remove(numPeticio);
 
                 camio2Centro(i,j);
                 return true;
@@ -222,18 +271,18 @@ public class GasolinaState {
                     if (state.get(i).get(state.get(i).size()-1)[1] != -1) beneficis += (distanciaCentroGasolinera[i][state.get(i).get(state.get(i).size()-1)[0]] * costeKm);
                 }
                 int b = precioDeposito;
-                int numPets = peticions.get(j).size() -1;
-                if (peticions.get(j).get(numPets) == 0) b *= 1.02;
-                else b *= (1 - (Math.pow(2, peticions.get(j).get(numPets))) / 100);
+                int numPeticio = peticio_mes_dies(j); 
+                if (peticions.get(j).get(numPeticio) == 0) b *= 1.02;
+                else b *= (1 - (Math.pow(2, peticions.get(j).get(numPeticio))) / 100);
                 beneficis += b;
                 beneficis -= (distanciasGasGas[state.get(i).get(state.get(i).size()-1)[0]][j] * costeKm);
                 estatCamions[i][0] -= (distanciasGasGas[state.get(i).get(state.get(i).size()-1)[0]][j]);
                 estatCamions[i][2] -= 1;
                 int[]v = new int[2];
                 v[0] = j;
-                v[1] = peticions.get(j).get(numPets);
+                v[1] = peticions.get(j).get(numPeticio);
                 state.get(i).add(v);
-                peticions.get(j).remove(numPets);
+                peticions.get(j).remove(numPeticio);
 
                 camio2Centro(i,j);
                 return true;
@@ -375,13 +424,13 @@ public class GasolinaState {
 
     public boolean addTomorrow(int i, int j) {
         if (!peticions.get(j).isEmpty()) {
-            int numPets = peticions.get(j).size() -1;
+            int numPeticio = peticio_mes_dies(j);
             int b = precioDeposito;
-            if (peticions.get(j).get(numPets)+1 == 0) b *= 1.02;
-            else b *= (1 - (Math.pow(2, peticions.get(j).get(numPets)+1)) / 100);
+            if (peticions.get(j).get(numPeticio)+1 == 0) b *= 1.02;
+            else b *= (1 - (Math.pow(2, peticions.get(j).get(numPeticio)+1)) / 100);
             beneficisTomorrow += b;
             //System.out.println(beneficisTomorrow);
-            peticions.get(j).remove(numPets);
+            peticions.get(j).remove(numPeticio);
             return true;
         }
         return false;
@@ -396,7 +445,18 @@ public class GasolinaState {
     }
 
 
+    private int peticio_mes_dies (int numero_gasolinera) {  //donada una gasolinera, retorna el numero de peticio amb mes dies
+        int numero_peticio_mes_gran = -1; 
+        int dies_peticio_mes_gran = -1;
+        for (int i = 0; i < peticions.get(numero_gasolinera).size(); i++) {
+            if (peticions.get(numero_gasolinera).get(i) > dies_peticio_mes_gran) {
+                numero_peticio_mes_gran = i; 
+                dies_peticio_mes_gran = peticions.get(numero_gasolinera).get(i);
+            }
+        }
 
+        return numero_peticio_mes_gran; 
+    }
 
     //About imprimir
     public void imprimirDistanciasCentroGas() {
