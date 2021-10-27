@@ -25,6 +25,7 @@ public class GasolinaState {
     
     public int beneficis = 0;
     public int beneficisTomorrow = 0;
+
     int [][]estatCamions; //Km restants; viatges restants; diposit (0 = buit, 1 = mig, 2 = complet);
 
     List<List<Integer>> peticions;
@@ -65,6 +66,7 @@ public class GasolinaState {
 //Constructora por copia
     public GasolinaState(GasolinaState gb){
         this.beneficis = gb.beneficis;
+        this.beneficisTomorrow = gb.beneficisTomorrow;
 
         this.state = new ArrayList<List<int[]>>(centros.size());
 
@@ -122,7 +124,7 @@ public class GasolinaState {
 
     //heuristica que tambe te en compte amortitzar els costos pels propers dies, anant primer a les peticions que ja porten molts dies
     public double heuristic_2() {
-        double bT = beneficisTomorrow*0.5;
+        double bT = beneficisTomorrow;
         return -beneficis-bT;
         
     }
@@ -130,8 +132,9 @@ public class GasolinaState {
     public double addsDisponibles() {
         double disponibles = 0;
         for (int i = 0; i < centros.size(); ++i) {
-            if (estatCamions[i][1] > 1) ++ disponibles;
-            else if (estatCamions[i][1] == 0 && state.get(i).get(state.get(i).size()-1)[1] == -1) ++disponibles;
+            for (int j = 0; j < gas.size(); ++j) {
+                if (nomes_comprova_add(i, j)) ++disponibles;
+            }
         }
 
         return disponibles;
@@ -452,7 +455,7 @@ public class GasolinaState {
         System.out.println("beneficis: " + beneficis);
         System.out.println("beneficis demà: " + beneficisTomorrow);
         System.out.println("total: " + (beneficis+beneficisTomorrow));
-        //System.out.println("numP: " + numP);
+        System.out.println("numP: " + numP);
     }
     
     //END About imprimir
