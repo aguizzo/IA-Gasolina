@@ -104,67 +104,76 @@ public class GasolinaState {
 
     public void ComplexInitialSolution() { //Intentem fer totes aquelles peticions que tinguin 3 o mes dies
         for (int i = 0; i < gas.size(); i++) {
+            int contador_peticions_a_resoldre = 0; 
             for (int j = 0; j < peticions.get(i).size(); j++) {  
                 if (peticions.get(i).get(j) >= 3) {
-                    Boolean trobat_almenys_un = false;
-                    //apuntem la distancia del camio mes petita
-                    int index_camio = -1; 
-                    int distancia_camio = -1; 
-                    for (int k = 0; k < centros.size(); k++) {
-                        if (nomes_comprova_add(k, i)) {
-                            if (!trobat_almenys_un) {
-                                trobat_almenys_un = true; 
-                                index_camio = k; 
+                    contador_peticions_a_resoldre++;
+                }
+            }
+            if (contador_peticions_a_resoldre > 0) {
+                Boolean trobat_almenys_un = false;
+                //apuntem la distancia del camio mes petita
+                int index_camio = -1; 
+                int distancia_camio = -1; 
+                for (int k = 0; k < centros.size(); k++) {
+                    if (nomes_comprova_add(k, i)) {
+                        if (!trobat_almenys_un) {
+                            trobat_almenys_un = true; 
+                            index_camio = k; 
 
-                                //calculem distancia fins gasolinera del camio actual
-                                if (state.get(k).isEmpty()) {
-                                    distancia_camio = distanciaCentroGasolinera[k][i]; 
-                                }
-                                else {
-                                    if (state.get(k).get(state.get(k).size()-1)[1] != -1) {
-                                        distancia_camio = distanciasGasGas[state.get(k).get(state.get(k).size()-1)[0]][i]; 
-                                    }
-                                    else {
-                                        distancia_camio = distanciaCentroGasolinera[k][i]; 
-                                    }
-                                }
-                                
+                            //calculem distancia fins gasolinera del camio actual
+                            if (state.get(k).isEmpty()) {
+                                distancia_camio = distanciaCentroGasolinera[k][i]; 
                             }
                             else {
-
-                                //calculem distancia fins gasolinera del camio actual
-                                int distancia_camio_actual; 
-
-                                if (state.get(k).isEmpty()) {
-                                    distancia_camio_actual = distanciaCentroGasolinera[k][i]; 
+                                if (state.get(k).get(state.get(k).size()-1)[1] != -1) {
+                                    distancia_camio = distanciasGasGas[state.get(k).get(state.get(k).size()-1)[0]][i]; 
                                 }
                                 else {
-                                    if (state.get(k).get(state.get(k).size()-1)[1] != -1) {
-                                        distancia_camio_actual = distanciasGasGas[state.get(k).get(state.get(k).size()-1)[0]][i]; 
-                                    }
-                                    else {
-                                        distancia_camio_actual = distanciaCentroGasolinera[k][i]; 
-                                    }
+                                    distancia_camio = distanciaCentroGasolinera[k][i]; 
                                 }
+                            }
+                            
+                        }
+                        else {
+
+                            //calculem distancia fins gasolinera del camio actual
+                            int distancia_camio_actual; 
+
+                            if (state.get(k).isEmpty()) {
+                                distancia_camio_actual = distanciaCentroGasolinera[k][i]; 
+                            }
+                            else {
+                                if (state.get(k).get(state.get(k).size()-1)[1] != -1) {
+                                    distancia_camio_actual = distanciasGasGas[state.get(k).get(state.get(k).size()-1)[0]][i]; 
+                                }
+                                else {
+                                    distancia_camio_actual = distanciaCentroGasolinera[k][i]; 
+                                }
+                            }
 
 
-                                if (distancia_camio_actual < distancia_camio) {
-                                    index_camio = k;
-                                    distancia_camio = distancia_camio_actual; 
-                                }
+                            if (distancia_camio_actual < distancia_camio) {
+                                index_camio = k;
+                                distancia_camio = distancia_camio_actual; 
                             }
                         }
                     }
+                }
 
-                    if (trobat_almenys_un) {
+                if (trobat_almenys_un) {
+                    for (int y = 0; y < contador_peticions_a_resoldre; y++) {
                         addGasolinera(index_camio, i); 
                     }
-
                 }
+
             }
 
+
         }
+
     }
+            
 
     public double heuristic() {
         return -beneficis;
