@@ -202,7 +202,7 @@ public class GasolinaState {
         double disponibles = 0;
         for (int i = 0; i < centros.size(); ++i) {
             for (int j = 0; j < centros.size(); ++j) {
-                if (!state.get(i).isEmpty() || !state.get(j).isEmpty()) ++disponibles;
+                if (nomes_comprova_swap(i, j)) ++disponibles;
             }
         }
         return disponibles;
@@ -303,7 +303,7 @@ public class GasolinaState {
         return false;
     }
 
-    public boolean nomes_comprova_add(int i, int j) {
+    private boolean nomes_comprova_add(int i, int j) {     //Mateix que addGasolinera, pero nomes comprova, no fa add
         if ((state.get(i).isEmpty() || state.get(i).get(state.get(i).size()-1)[1] == -1) && estatCamions[i][1] > 0) {
             if ((estatCamions[i][0]) - (distanciaCentroGasolinera[i][j] * 2) >= 0 && !peticions.get(j).isEmpty()) {
                 return true; 
@@ -416,20 +416,98 @@ public class GasolinaState {
         int l2 = lastGasolinera(j);
         if (l1 != -1 || l2 != -1) {
             if (l1 == -1) {
-                addGasolinera(i,l2);
                 removeGasolinera(j);
+                if (!addGasolinera(i,l2)) {
+                    //tornem on estavem abans del swap ja que no es pot fer swap
+                    addGasolinera(j, l2); 
+                    return false; 
+                }
             }
             else if (l2 == -1) {
                 removeGasolinera(i);
-                addGasolinera(j,l1);
+                if (!addGasolinera(j,l1)) {
+                    //tornem on estavem abans del swap ja qe no es pot fer swap
+                    addGasolinera(i, l1); 
+                    return false; 
+                }
             }
             else {
                 removeGasolinera(i);
                 removeGasolinera(j);
-                addGasolinera(i,l2);
-                addGasolinera(j,l1);
+                if (!addGasolinera(i,l2)) {
+                    //tornem on estavem abans del swap ja que no es pot fer swap
+                    addGasolinera(i, l1); 
+                    addGasolinera(j, l2); 
+                    return false; 
+                }
+                if (!addGasolinera(j,l1)) {
+                    //tornem on estavem abans del swap ja que no es pot fer swap
+                    addGasolinera(i, l1); 
+                    addGasolinera(j, l2); 
+                    return false;
+                }
             }
             return true;
+        }
+        return false;
+    }
+
+    private boolean nomes_comprova_swap(int i, int j) {    //Mateix que swap, pero nomes fa la comprovacio
+        int l1 = lastGasolinera(i);
+        int l2 = lastGasolinera(j);
+        if (l1 != -1 || l2 != -1) {
+            if (l1 == -1) {
+                removeGasolinera(j);
+                if (!nomes_comprova_add(i, l2)) {
+                    //tornem on estavem abans del swap
+                    addGasolinera(j, l2); 
+                    return false; 
+                }
+                else {
+                    //tornem on estavem abans del swap, nomes estem comprovant
+                    addGasolinera(j, l2); 
+                    return true; 
+                }
+            }
+            else if (l2 == -1) {
+                removeGasolinera(i);
+                if (!nomes_comprova_add(j, l1)) { 
+                    //tornem on estavem abans del swap
+                    addGasolinera(i, l1); 
+                    return false; 
+                }
+                else {
+                    //tornem on estavem abans del swap, nomes estem comprovant
+                    addGasolinera(i, l1); 
+                    return true;
+                }
+            }
+            else {
+                removeGasolinera(i);
+                removeGasolinera(j);
+                if (!nomes_comprova_add(i, l2)) { 
+                    //tornem on estavem abans del swap
+                    addGasolinera(i, l1); 
+                    addGasolinera(j, l2); 
+                    return false; 
+                }
+                else {
+                    if (!nomes_comprova_add(j, l1)) { 
+                        //tornem on estavem abans del swap
+                        addGasolinera(i, l1); 
+                        addGasolinera(j, l2); 
+                        return false;
+
+                    }
+                    else {
+                        //tornem on estavem abans del swap, nomes estem comprovant
+                        addGasolinera(i, l1); 
+                        addGasolinera(j, l2); 
+                        return true; 
+                    }
+
+                }
+            }
         }
         return false;
     }
