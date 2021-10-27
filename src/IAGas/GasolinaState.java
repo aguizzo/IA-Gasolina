@@ -414,7 +414,7 @@ public class GasolinaState {
     public boolean swap(int i, int j) {
         int l1 = lastGasolinera(i);
         int l2 = lastGasolinera(j);
-        if (l1 != -1 || l2 != -1) {
+        if ((l1 != -1 || l2 != -1) && i != j) {
             if (l1 == -1) {
                 removeGasolinera(j);
                 if (!addGasolinera(i,l2)) {
@@ -452,11 +452,27 @@ public class GasolinaState {
         return false;
     }
 
-    private boolean nomes_comprova_swap(int i, int j) {    //Mateix que swap, pero nomes fa la comprovacio
+private boolean nomes_comprova_swap(int i, int j) {    //Mateix que swap, pero nomes fa la comprovacio
         int l1 = lastGasolinera(i);
         int l2 = lastGasolinera(j);
-        if (l1 != -1 || l2 != -1) {
-            return true;
+        if ((l1 != -1 || l2 != -1) && i != j) {
+            if (l1 == -1) {
+                if (nomes_comprova_add(i, l2)) return true;
+            } else if (l2 == -1) {
+                if (nomes_comprova_add(j, l1)) return true;
+            } else {
+                removeGasolinera(i);
+                removeGasolinera(j);
+                if (nomes_comprova_add(i, l2) && nomes_comprova_add(j, l1)) {
+                    addGasolinera(i, l1);
+                    addGasolinera(j, l2);
+                    return true;
+                }
+                else {
+                    addGasolinera(i, l1);
+                    addGasolinera(j, l2);
+                }
+            }
         }
         return false;
     }
