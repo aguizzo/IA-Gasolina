@@ -419,16 +419,16 @@ public class GasolinaState {
                 removeGasolinera(j);
                 if (!addGasolinera(i,l2)) {
                     //tornem on estavem abans del swap ja que no es pot fer swap
-                    addGasolinera(j, l2); 
-                    return false; 
+                    addGasolinera(j, l2);
+                    return false;
                 }
             }
             else if (l2 == -1) {
                 removeGasolinera(i);
                 if (!addGasolinera(j,l1)) {
                     //tornem on estavem abans del swap ja qe no es pot fer swap
-                    addGasolinera(i, l1); 
-                    return false; 
+                    addGasolinera(i, l1);
+                    return false;
                 }
             }
             else {
@@ -436,14 +436,14 @@ public class GasolinaState {
                 removeGasolinera(j);
                 if (!addGasolinera(i,l2)) {
                     //tornem on estavem abans del swap ja que no es pot fer swap
-                    addGasolinera(i, l1); 
-                    addGasolinera(j, l2); 
-                    return false; 
+                    addGasolinera(i, l1);
+                    addGasolinera(j, l2);
+                    return false;
                 }
                 if (!addGasolinera(j,l1)) {
                     //tornem on estavem abans del swap ja que no es pot fer swap
-                    addGasolinera(i, l1); 
-                    addGasolinera(j, l2); 
+                    addGasolinera(i, l1);
+                    addGasolinera(j, l2);
                     return false;
                 }
             }
@@ -456,58 +456,7 @@ public class GasolinaState {
         int l1 = lastGasolinera(i);
         int l2 = lastGasolinera(j);
         if (l1 != -1 || l2 != -1) {
-            if (l1 == -1) {
-                removeGasolinera(j);
-                if (!nomes_comprova_add(i, l2)) {
-                    //tornem on estavem abans del swap
-                    addGasolinera(j, l2); 
-                    return false; 
-                }
-                else {
-                    //tornem on estavem abans del swap, nomes estem comprovant
-                    addGasolinera(j, l2); 
-                    return true; 
-                }
-            }
-            else if (l2 == -1) {
-                removeGasolinera(i);
-                if (!nomes_comprova_add(j, l1)) { 
-                    //tornem on estavem abans del swap
-                    addGasolinera(i, l1); 
-                    return false; 
-                }
-                else {
-                    //tornem on estavem abans del swap, nomes estem comprovant
-                    addGasolinera(i, l1); 
-                    return true;
-                }
-            }
-            else {
-                removeGasolinera(i);
-                removeGasolinera(j);
-                if (!nomes_comprova_add(i, l2)) { 
-                    //tornem on estavem abans del swap
-                    addGasolinera(i, l1); 
-                    addGasolinera(j, l2); 
-                    return false; 
-                }
-                else {
-                    if (!nomes_comprova_add(j, l1)) { 
-                        //tornem on estavem abans del swap
-                        addGasolinera(i, l1); 
-                        addGasolinera(j, l2); 
-                        return false;
-
-                    }
-                    else {
-                        //tornem on estavem abans del swap, nomes estem comprovant
-                        addGasolinera(i, l1); 
-                        addGasolinera(j, l2); 
-                        return true; 
-                    }
-
-                }
-            }
+            return true;
         }
         return false;
     }
@@ -586,6 +535,12 @@ public class GasolinaState {
     
     public void imprimirState() {
         for (int i = 0; i < state.size(); i++) {
+            if (!state.get(i).isEmpty() && state.get(i).get(state.get(i).size()-1)[1] > 0) {
+                int[]v = new int[2];
+                v[0] = i;
+                v[1] = -1;
+                state.get(i).add(v);
+            }
             for (int j = 0; j < state.get(i).size(); j++) {
                 int type = state.get(i).get(j)[1];
                 int point = state.get(i).get(j)[0];
@@ -595,14 +550,9 @@ public class GasolinaState {
                 else System.out.println("El camion " + i + " ha ido a la gasolinera " + point);
             }
         }
-        int numP = 0;
-        for (int i = 0; i < gas.size(); ++i) {
-            numP += peticions.get(i).size();
-        }
         System.out.println("beneficis: " + beneficis);
         System.out.println("beneficis demà: " + beneficisTomorrow);
         System.out.println("total: " + (beneficis+beneficisTomorrow));
-        System.out.println("numP: " + numP);
     }
     
     //END About imprimir

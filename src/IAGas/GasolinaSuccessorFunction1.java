@@ -1,6 +1,5 @@
 package IAGas;
 import java.util.ArrayList;
-import java.util.List;
 import aima.search.framework.SuccessorFunction;
 import aima.search.framework.Successor;
 
@@ -32,14 +31,15 @@ public class GasolinaSuccessorFunction1 implements SuccessorFunction {
                 }
             }
         }
-
-        for (int i = 0; i < GasolinaState.centros.size(); ++i) {
-            for (int j = 0; j < GasolinaState.gas.size(); ++j) {
-                GasolinaState new_state = new GasolinaState(board);
-                if (new_state.addTomorrow(i,j)) {
-                    StringBuffer S = new StringBuffer();
-                    S.append("s'ha afegit la gasolinera " + j + " al camió " + i + " demà. Beneficis: " + new_state.beneficis);
-                    retval.add(new Successor(S.toString(), new_state));
+        if (board.tipus_heuristica == 2) {
+            for (int i = 0; i < GasolinaState.centros.size(); ++i) {
+                for (int j = 0; j < GasolinaState.gas.size(); ++j) {
+                    GasolinaState new_state = new GasolinaState(board);
+                    if (new_state.addTomorrow(i, j)) {
+                        StringBuffer S = new StringBuffer();
+                        S.append("s'ha afegit la gasolinera " + j + " al camió " + i + " demà. Beneficis: " + new_state.beneficis);
+                        retval.add(new Successor(S.toString(), new_state));
+                    }
                 }
             }
         }

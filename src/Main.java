@@ -81,15 +81,16 @@ public class Main {
 
 
             //Initial solution
-            System.out.println("If you want to use the simple initial solution system, type: 1.");
-            System.out.println("If you want to use the comlex initial solution system, type: 2.");
+            System.out.println("If you want to use the empty initial solution system, type: 1.");
+            System.out.println("If you want to use the simple initial solution system, type: 2.");
+            System.out.println("If you want to use the complex initial solution system, type: 3.");
 
             int complexity = input.nextInt();
-            if (complexity == 1) {
+            if (complexity == 2) {
                 state.SimpleInitialSolution();
                 System.out.println("You've chosed the simple initial solution system");
             }
-            else if (complexity ==  2) {
+            else if (complexity ==  3) {
                 state.ComplexInitialSolution();
                 System.out.println("You've chosed the complex initial solution system");
             }
@@ -199,10 +200,6 @@ public class Main {
             return; 
         }
 
-
-
-
-
     }
 
     private static void GasolinaHillClimbingSearch (GasolinaState state) {
@@ -218,8 +215,6 @@ public class Main {
             printActions(agent.getActions());
             printInstrumentation(agent.getInstrumentation());
 
-            //System.out.println("\n" + ((AzamonEstado) search.getGoalState()).toString());
-            //System.out.println("\n" + ((AzamonEstado) search.getGoalState()).correspondenciasToString());
 
             System.out.println("Finished");
             
@@ -247,8 +242,6 @@ public class Main {
             //printActions(agent.getActions());
             printInstrumentation(agent.getInstrumentation());
 
-            //System.out.println("\n" + ((AzamonEstado) search.getGoalState()).toString());
-            //System.out.println("\n" + ((AzamonEstado) search.getGoalState()).correspondenciasToString());
 
             System.out.println("Finished");
 

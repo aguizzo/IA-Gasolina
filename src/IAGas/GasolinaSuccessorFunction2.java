@@ -21,11 +21,16 @@ public class GasolinaSuccessorFunction2 implements SuccessorFunction {
         //Es tria de forma random si es fa add o swap. LLavors es tria de forma random un camio i gas (o camio i camio)
         //Si no es pot realitzar loperacio desitjada per aquests dos, llavors es tria un altre camio i gasolinera randoms per fer aquesta operacio. 
         if (opcio == 1) {
-            int tipus_metode = randInt(0, 1); // 0 = add    1 = swap
+            int tipus_metode = randInt(0, 100); // 0 = add    1 = swap
+            double addsDisp = board.addsDisponibles();
+            double swapsDisp = board.swapsDisponibles();
+            double totalDisp = (addsDisp + swapsDisp);
+            double percentatgeAdds;
+            if (totalDisp != 0) percentatgeAdds = (addsDisp/(addsDisp + swapsDisp)) * 100;
+            else percentatgeAdds = 50;
+            int camio_1;
 
-            int camio_1; 
-
-            if (tipus_metode == 0) {
+            if (tipus_metode < percentatgeAdds) {
                 int gasolinera; 
                 do {
                     camio_1 =  randInt(0, numero_camions-1); 
@@ -60,11 +65,16 @@ public class GasolinaSuccessorFunction2 implements SuccessorFunction {
 
         //Igual que la opcio 1, pero si no es pot fer la operacio pel camio i gas triats (o camio i camio), no es fa res
         else if (opcio == 2) {
-            int tipus_metode = randInt(0, 1); // 0 = add    1 = swap
-
+            int tipus_metode = randInt(0, 100); // 0 = add    1 = swap
+            double addsDisp = board.addsDisponibles();
+            double swapsDisp = board.swapsDisponibles();
+            double totalDisp = (addsDisp + swapsDisp);
+            double percentatgeAdds;
+            if (totalDisp != 0) percentatgeAdds = (addsDisp/(addsDisp + swapsDisp)) * 100;
+            else percentatgeAdds = 50;
             int camio_1 = randInt(0, numero_camions-1); 
 
-            if (tipus_metode == 0) {
+            if (tipus_metode <= percentatgeAdds) {
                 int gasolinera = randInt(0, numero_gasolineras-1); 
                 if (new_state.addGasolinera(camio_1,gasolinera)) {
                     StringBuffer S = new StringBuffer();
@@ -73,7 +83,7 @@ public class GasolinaSuccessorFunction2 implements SuccessorFunction {
                 }
             }
 
-            else if (tipus_metode == 1) {
+            else {
                 int camio_2; 
                 do {
                     camio_2 = randInt(0, numero_camions-1); 
@@ -89,11 +99,16 @@ public class GasolinaSuccessorFunction2 implements SuccessorFunction {
        
         //Igual que la opció 1, pero si no es pot fer la operacio pel camio i gas triasts (o camio i camio), s'intenta fer l'altre operacio. Si cap de les dos funciona, no es fa res
         else if (opcio == 3) {
-            int tipus_metode = randInt(0, 1); // 0 = add    1 = swap
+            int tipus_metode = randInt(0, 100); // 0 = add    1 = swap
+            double addsDisp = board.addsDisponibles();
+            double swapsDisp = board.swapsDisponibles();
+            double totalDisp = (addsDisp + swapsDisp);
+            double percentatgeAdds;
+            if (totalDisp != 0) percentatgeAdds = (addsDisp/(addsDisp + swapsDisp)) * 100;
+            else percentatgeAdds = 50;
+            int camio_1 = randInt(0, numero_camions-1);
 
-            int camio_1 = randInt(0, numero_camions-1); 
-
-            if (tipus_metode == 0) {
+            if (tipus_metode < percentatgeAdds) {
                 int gasolinera = randInt(0, numero_gasolineras-1); 
                 if (new_state.addGasolinera(camio_1,gasolinera)) {
                     StringBuffer S = new StringBuffer();
