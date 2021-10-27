@@ -15,7 +15,6 @@ import java.util.*;
 public class Main {
     public static void main(String[] args) throws Exception {
 
-
         System.out.println("For Hill Climbing, type: 1"); 
         System.out.println("For Simulated Annealing, type: 2");
         System.out.println("If you want Simulated Annealing, and compare all the S.A parameters into a CSV file, type: 3");
@@ -199,6 +198,8 @@ public class Main {
         else {
             return; 
         }
+
+
 
 
 
