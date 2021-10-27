@@ -201,7 +201,7 @@ public class GasolinaState {
     public double swapsDisponibles() {
         double disponibles = 0;
         for (int i = 0; i < centros.size(); ++i) {
-            for (int j = 0; j < centros.size(); ++j) {
+            for (int j = i + 1; j < centros.size(); ++j) {
                 if (nomes_comprova_swap(i, j)) ++disponibles;
             }
         }
@@ -465,6 +465,7 @@ public class GasolinaState {
                 }
                 else {
                     //tornem on estavem abans del swap, nomes estem comprovant
+                    removeGasolinera(i); 
                     addGasolinera(j, l2); 
                     return true; 
                 }
@@ -478,6 +479,7 @@ public class GasolinaState {
                 }
                 else {
                     //tornem on estavem abans del swap, nomes estem comprovant
+                    removeGasolinera(j); 
                     addGasolinera(i, l1); 
                     return true;
                 }
@@ -501,6 +503,8 @@ public class GasolinaState {
                     }
                     else {
                         //tornem on estavem abans del swap, nomes estem comprovant
+                        removeGasolinera(i); 
+                        removeGasolinera(j); 
                         addGasolinera(i, l1); 
                         addGasolinera(j, l2); 
                         return true; 
