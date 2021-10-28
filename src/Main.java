@@ -186,25 +186,86 @@ public class Main {
                 BufferedWriter bw = new BufferedWriter(fw);
                 PrintWriter pw = new PrintWriter(bw); 
 
-                pw.println("Number of centers" + "," + "Number of gas stations" + "," + "profits" + "," + "execution time");
+                pw.println("Number of centers" + "," + "Number of gas stations" + "," + "Initial solution type" + "," + "profits" + "," + "execution time OF THE INITIAL STATE CREATION");
 
                 for (int i = 2; i <= 100; i++) {
-                    GasolinaState current = new GasolinaState(1, 1234, i, 100, false); 
-                    long timeStart = System.currentTimeMillis();
-                    int profits = GasolinaHillClimbingSearch_not_print_return_profits(current); 
-                    double timeEstimated = (System.currentTimeMillis() - timeStart)/1000.0; 
-                    pw.println(i + "," + 100 + "," + profits + "," + timeEstimated);
-                    System.out.println("Number of centers = " + i + ", " + "Number of gas stations = " + 100 + " DONE");
+                    for (int j = 0; j < 3; j++) {
+                        if (j == 0) {
+                            //empty one
+                            GasolinaState current = new GasolinaState(1, 1234, i, 100, false); 
+                            double timeEstimated = 0; //Becuase of empty, it does not take time
+                            //no creation of any initial   solution
+                            int profits = GasolinaHillClimbingSearch_not_print_return_profits(current); 
+                            
+                            pw.println(i + "," + 100 + "," + "empty" + "," + profits + "," + timeEstimated);
+                            System.out.println("Number of centers = " + i + ", " + "Number of gas stations = " + 100 + "empty initial solution" + " DONE");
+                        }
+                        else if (j == 1) {
+                            //simple one
+                            GasolinaState current = new GasolinaState(1, 1234, i, 100, false);
+                            long timeStart = System.nanoTime(); 
+                            current.SimpleInitialSolution();
+                            double timeEstimated = (System.nanoTime() - timeStart) / 1000000000.0;
+
+                            int profits = GasolinaHillClimbingSearch_not_print_return_profits(current); 
+                            
+                            pw.println(i + "," + 100 + "," + "simple" + "," + profits + "," + timeEstimated);
+                            System.out.println("Number of centers = " + i + ", " + "Number of gas stations = " + 100 + "simple initial solution" + " DONE");
+                        }
+                        else if (j == 2) {
+                            //complex one
+                            GasolinaState current = new GasolinaState(1, 1234, i, 100, false); 
+                            long timeStart = System.nanoTime(); 
+                            current.ComplexInitialSolution();
+                            double timeEstimated = (System.nanoTime() - timeStart) / 1000000000.0;
+
+                            int profits = GasolinaHillClimbingSearch_not_print_return_profits(current); 
+                            
+                            pw.println(i + "," + 100 + "," + "complex" + "," + profits + "," + timeEstimated);
+                            System.out.println("Number of centers = " + i + ", " + "Number of gas stations = " + 100 + "complex initial solution" + " DONE");
+                        }
+                    }
 
                 }
 
                 for (int i = 2; i <= 100; i++) {
-                    GasolinaState current = new GasolinaState(1, 1234, 100, i, false); 
-                    long timeStart = System.currentTimeMillis();
-                    int profits = GasolinaHillClimbingSearch_not_print_return_profits(current); 
-                    double timeEstimated = (System.currentTimeMillis() - timeStart)/1000.0; 
-                    pw.println(100 + "," + i + "," + profits + "," + timeEstimated);
-                    System.out.println("Number of centers = " + 100 + ", " + "Number of gas stations = " + i + " DONE");
+                    for (int j = 0; j < 3; j++) {
+                        if (j == 0) {
+                            //empty one
+                            GasolinaState current = new GasolinaState(1, 1234, 100, i, false); 
+                            double timeEstimated = 0; //Becuase of empty, it does not take time
+                            //no creation of any initial   solution
+                            int profits = GasolinaHillClimbingSearch_not_print_return_profits(current); 
+                            
+                            pw.println(100 + "," + i + "," + "empty" + "," + profits + "," + timeEstimated);
+                            System.out.println("Number of centers = " + 100 + ", " + "Number of gas stations = " + i + "empty initial solution" + " DONE");
+                        }
+                        else if (j == 1) {
+                            //simple one
+                            GasolinaState current = new GasolinaState(1, 1234, 100, i, false);
+                            long timeStart = System.nanoTime(); 
+                            current.SimpleInitialSolution();
+                            double timeEstimated = (System.nanoTime() - timeStart) / 1000000000.0;
+
+                            int profits = GasolinaHillClimbingSearch_not_print_return_profits(current); 
+                            
+                            pw.println(100 + "," + i + "," + "simple" + "," + profits + "," + timeEstimated);
+                            System.out.println("Number of centers = " + 100 + ", " + "Number of gas stations = " + i + "simple initial solution" + " DONE");
+                        }
+                        else if (j == 2) {
+                            //complex one
+                            GasolinaState current = new GasolinaState(1, 1234, 100, i, false); 
+                            long timeStart = System.nanoTime(); 
+                            current.ComplexInitialSolution();
+                            double timeEstimated = (System.nanoTime() - timeStart) / 1000000000.0;
+
+                            int profits = GasolinaHillClimbingSearch_not_print_return_profits(current); 
+                            
+                            pw.println(100 + "," + i + "," + "complex" + "," + profits + "," + timeEstimated);
+                            System.out.println("Number of centers = " + 100 + ", " + "Number of gas stations = " + i + "complex initial solution" + " DONE");
+                        }
+                    }
+
                 }
 
                 pw.flush();
