@@ -201,7 +201,7 @@ public class GasolinaState {
     public double swapsDisponibles() {
         double disponibles = 0;
         for (int i = 0; i < centros.size(); ++i) {
-            for (int j = 0; j < centros.size(); ++j) {
+            for (int j = i + 1; j < centros.size(); ++j) {
                 if (nomes_comprova_swap(i, j)) ++disponibles;
             }
         }
@@ -452,29 +452,73 @@ public class GasolinaState {
         return false;
     }
 
-private boolean nomes_comprova_swap(int i, int j) {    //Mateix que swap, pero nomes fa la comprovacio
+    private boolean nomes_comprova_swap(int i, int j) {    //Mateix que swap, pero nomes fa la comprovacio
         int l1 = lastGasolinera(i);
         int l2 = lastGasolinera(j);
         if ((l1 != -1 || l2 != -1) && i != j) {
+
             if (l1 == -1) {
-                if (nomes_comprova_add(i, l2)) return true;
-            } else if (l2 == -1) {
-                if (nomes_comprova_add(j, l1)) return true;
-            } else {
-                removeGasolinera(i);
-                removeGasolinera(j);
-                if (nomes_comprova_add(i, l2) && nomes_comprova_add(j, l1)) {
-                    addGasolinera(i, l1);
-                    addGasolinera(j, l2);
-                    return true;
+                //mateix que nomes_comprova_add, pero sense tenir en compte les peticions
+                if ((state.get(i).isEmpty() || state.get(i).get(state.get(i).size()-1)[1] == -1) && estatCamions[i][1] > 0) {
+                    if ((estatCamions[i][0]) - (distanciaCentroGasolinera[i][l2] * 2) >= 0) {
+                        return true; 
+                    }
                 }
-                else {
-                    addGasolinera(i, l1);
-                    addGasolinera(j, l2);
+                else if (estatCamions[i][0] - distanciaCentroGasolinera[i][l2] - distanciasGasGas[state.get(i).get(state.get(i).size()-1)[0]][l2] >= 0 && estatCamions[i][1] > 0) {
+                    return true; 
                 }
+        
+                return false; 
+                
+            } 
+            else if (l2 == -1) {
+                //mateix que nomes_comprova_add, pero sense tenir en compte les peticions
+                if ((state.get(j).isEmpty() || state.get(j).get(state.get(j).size()-1)[1] == -1) && estatCamions[j][1] > 0) {
+                    if ((estatCamions[j][0]) - (distanciaCentroGasolinera[j][l1] * 2) >= 0) {
+                        return true; 
+                    }
+                }
+                else if (estatCamions[j][0] - distanciaCentroGasolinera[j][l1] - distanciasGasGas[state.get(j).get(state.get(j).size()-1)[0]][l1] >= 0 && estatCamions[j][1] > 0) {
+                    return true; 
+                }
+        
+                return false; 
+
+            } 
+            else {
+                //san de compliur els dos nomes comprova adds
+
+                //primer
+                if ((state.get(i).isEmpty() || state.get(i).get(state.get(i).size()-1)[1] == -1) && estatCamions[i][1] > 0) {
+                    if ((estatCamions[i][0]) - (distanciaCentroGasolinera[i][l2] * 2) >= 0) {
+                    }
+                    else return false; 
+                }
+                else if (estatCamions[i][0] - distanciaCentroGasolinera[i][l2] - distanciasGasGas[state.get(i).get(state.get(i).size()-1)[0]][l2] >= 0 && estatCamions[i][1] > 0) {
+                }
+        
+                else return false; 
+
+                //segon
+                if ((state.get(j).isEmpty() || state.get(j).get(state.get(j).size()-1)[1] == -1) && estatCamions[j][1] > 0) {
+                    if ((estatCamions[j][0]) - (distanciaCentroGasolinera[j][l1] * 2) >= 0) {
+                    }
+                    else return false; 
+                }
+                else if (estatCamions[j][0] - distanciaCentroGasolinera[j][l1] - distanciasGasGas[state.get(j).get(state.get(j).size()-1)[0]][l1] >= 0 && estatCamions[j][1] > 0) {
+                }
+        
+                else return false;  
+
+
+                //si es compleixen els dos
+                return true; 
+
+                
+
             }
         }
-        return false;
+        else return false;
     }
 
     public boolean addTomorrow(int i, int j) {
