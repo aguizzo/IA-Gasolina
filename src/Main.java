@@ -195,44 +195,6 @@ public class Main {
                 }
             }
 
-
-            
-            else if (operation == 4) {
-                GasolinaState.tipus_heuristica = 1; 
-
-
-                String filename = "Experiment 2. First heuristic. Seed 1234. 1 truck per center" + ".csv"; 
-                FileWriter fw = new FileWriter(filename, true); 
-                BufferedWriter bw = new BufferedWriter(fw);
-                PrintWriter pw = new PrintWriter(bw); 
-
-                pw.println("Number of centers" + "," + "Number of gas stations" + "," + "profits" + "," + "execution time");
-
-                for (int i = 2; i <= 100; i++) {
-                    GasolinaState current = new GasolinaState(1, 1234, i, 100, false); 
-                    long timeStart = System.currentTimeMillis();
-                    int profits = GasolinaHillClimbingSearch_not_print_return_profits(current); 
-                    double timeEstimated = (System.currentTimeMillis() - timeStart)/1000.0; 
-                    pw.println(i + "," + 100 + "," + profits + "," + timeEstimated);
-                    System.out.println("Number of centers = " + i + ", " + "Number of gas stations = " + 100 + " DONE");
-
-                }
-
-                for (int i = 2; i <= 100; i++) {
-                    GasolinaState current = new GasolinaState(1, 1234, 100, i, false); 
-                    long timeStart = System.currentTimeMillis();
-                    int profits = GasolinaHillClimbingSearch_not_print_return_profits(current); 
-                    double timeEstimated = (System.currentTimeMillis() - timeStart)/1000.0; 
-                    pw.println(100 + "," + i + "," + profits + "," + timeEstimated);
-                    System.out.println("Number of centers = " + 100 + ", " + "Number of gas stations = " + i + " DONE");
-                }
-
-                pw.flush();
-                pw.close();
-
-
-            }
-
             return; 
 
 
