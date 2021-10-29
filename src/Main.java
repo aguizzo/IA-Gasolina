@@ -200,9 +200,9 @@ public class Main {
                             for (int k_current = 1; k_current <= 5000; k_current += k_increment) {
                                 for (double lamb_current = 0.000000001; lamb_current <= 10; lamb_current *= 10) {
                                     GasolinaState state_current = new GasolinaState(state); 
-                                    long timeStart = System.currentTimeMillis();
+                                    long timeStart = System.nanoTime(); 
                                     int profits = GasolinaSimulatedAnnealingSearch_not_print_return_profits(state_current, steps_current, stiter_current, k_current, lamb_current); 
-                                    double timeEstimated = (System.currentTimeMillis() - timeStart)/1000.0; 
+                                    double timeEstimated = (System.nanoTime() - timeStart) / 1000000000.0;
                                     pw.println(steps_current + "," + stiter_current + "," + k_current + "," + lamb_current + "," + profits + "," + timeEstimated);
                                     System.out.println("Steps = " + steps_current + ", " + "stiter = " + stiter_current + ", " + "k = " + k_current + ", " + "lamb = " + lamb_current + " DONE");
                                 }
