@@ -30,7 +30,7 @@ public class GasolinaSuccessorFunction2 implements SuccessorFunction {
             if (totalDisp != 0) percentatgeAdds = (addsDisp/(addsDisp + swapsDisp)) * 100;
             else percentatgeAdds = 50;
             int camio_1;
-        */
+        
 
             if (tipus_metode < percentatgeAdds) {
                 int gasolinera; 
@@ -64,9 +64,11 @@ public class GasolinaSuccessorFunction2 implements SuccessorFunction {
 
         }
 
+        */
+
 
         //Igual que la opcio 1, pero si no es pot fer la operacio pel camio i gas triats (o camio i camio), no es fa res
-        else if (opcio == 2) {
+        if (opcio == 2) {
             int tipus_metode = randInt(0, 100); // 0 = add    1 = swap
             double addsDisp = board.addsDisponibles();
             double swapsDisp = board.swapsDisponibles();
