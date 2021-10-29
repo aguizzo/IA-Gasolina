@@ -17,7 +17,7 @@ public class Main {
 
         System.out.println("For Hill Climbing, type: 1"); 
         System.out.println("For Simulated Annealing, type: 2");
-        System.out.println("If you want Simulated Annealing, and compare all the S.A parameters into a CSV file, type: 3");
+        System.out.println("EXPERIMENT 3: If you want Simulated Annealing, and compare all the S.A parameters into a CSV file, type: 3");
         System.out.println("Experiment 2: If you want to compare the intial solutions with Hill Climbing into a CSV, type 4. First heuristic, seed 1234 will be used");
 
         System.out.println("If you want to exit the program, type any other number");  
@@ -131,7 +131,7 @@ public class Main {
                 }
     
                 else if (operation == 3) {
-                    String filename = "01" + ".csv";
+                    String filename = "EXPERIMENT 3: seed = " + seed + ", centers = " + GasolinaState.numero_centros + ", gas stations = " + GasolinaState.numero_gasolineras + ".csv";
                     FileWriter fw = new FileWriter(filename, true); 
                     BufferedWriter bw = new BufferedWriter(fw);
                     PrintWriter pw = new PrintWriter(bw); 
