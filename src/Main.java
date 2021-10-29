@@ -130,6 +130,8 @@ public class Main {
                     System.out.println("Execution Time: " + (timeEstimated) + " seconds");
                 }
     
+                    //CSV PETIT
+                    /*
                 else if (operation == 3) {
                     String filename = "EXPERIMENT 3: seed = " + seed + ", centers = " + GasolinaState.numero_centros + ", gas stations = " + GasolinaState.numero_gasolineras + ".csv";
                     FileWriter fw = new FileWriter(filename, true); 
@@ -169,12 +171,79 @@ public class Main {
                         }
                     }
                     */
+                    /*
     
                     pw.flush();
                     pw.close();
     
                 }
+                    */
                 
+            
+
+                //CSV GRAN
+                else if (operation == 3) {
+                    System.out.println("Choose one of the four options with which the successor function is able to choose new states with S annealing: 2, 3 o or 4 ");
+                    int opcio = input.nextInt(); 
+                    GasolinaState.opcio_s_annealing = opcio;  
+                    String filename = "EXPERIMENT 3: seed = " + seed + ", " + "centers = " + GasolinaState.numero_centros + ", " + "gas stations = " + GasolinaState.numero_gasolineras + ", Successor function type" + opcio + ".csv"; 
+                    FileWriter fw = new FileWriter(filename, true); 
+                    BufferedWriter bw = new BufferedWriter(fw);
+                    PrintWriter pw = new PrintWriter(bw); 
+
+                    pw.println("Steps" + "," + "stiter" + "," + "k" + "," + "lamb" + "," + "profits" + "," + "execution time");
+
+                    for (int steps_current = 500; steps_current <= 10000; steps_current += 500) {
+                        int stiter_increment = 1; 
+                        for (int stiter_current = 1; stiter_current <= steps_current; stiter_current += stiter_increment) {
+                            int k_increment = 1; 
+                            for (int k_current = 1; k_current <= 5000; k_current += k_increment) {
+                                for (double lamb_current = 0.000000001; lamb_current <= 10; lamb_current *= 10) {
+                                    GasolinaState state_current = new GasolinaState(state); 
+                                    long timeStart = System.currentTimeMillis();
+                                    int profits = GasolinaSimulatedAnnealingSearch_not_print_return_profits(state_current, steps_current, stiter_current, k_current, lamb_current); 
+                                    double timeEstimated = (System.currentTimeMillis() - timeStart)/1000.0; 
+                                    pw.println(steps_current + "," + stiter_current + "," + k_current + "," + lamb_current + "," + profits + "," + timeEstimated);
+                                    System.out.println("Steps = " + steps_current + ", " + "stiter = " + stiter_current + ", " + "k = " + k_current + ", " + "lamb = " + lamb_current + " DONE");
+                                }
+                                if (k_current == 5) {
+                                    k_increment = 5; 
+                                }
+                                else if (k_current == 10) {
+                                    k_increment = 40;
+                                }
+                                else if (k_current == 50) {
+                                    k_increment = 50; 
+                                }
+                                else if (k_current == 500) {
+                                    k_increment = 500; 
+                                }
+                                else if (k_current == 1000) {
+                                    k_increment = 4000; 
+                                }
+                            }
+                            if (stiter_current == 1) {
+                                stiter_increment = 9; 
+                            }
+                            else if (stiter_current == 10) {
+                                stiter_increment = 40; 
+                            }
+                            else if (stiter_current == 50) {
+                                stiter_increment = 50; 
+                            }
+                            else if (stiter_current == 100) {
+                                stiter_increment = 100; 
+                            }
+                            else if (stiter_current == 500) {
+                                stiter_increment = 500; 
+                            }
+                        }
+                    }
+
+                    pw.flush();
+                    pw.close();
+
+                }
             }
 
             else if (operation == 4) {
@@ -284,7 +353,6 @@ public class Main {
         else {
             return; 
         }
-
     }
 
     private static void GasolinaHillClimbingSearch (GasolinaState state) {
