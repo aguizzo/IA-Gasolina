@@ -186,7 +186,7 @@ public class Main {
                     System.out.println("Choose one of the four options with which the successor function is able to choose new states with S annealing: 2, 3 o or 4 ");
                     int opcio = input.nextInt(); 
                     GasolinaState.opcio_s_annealing = opcio;  
-                    String filename = "EXPERIMENT 3: seed = " + seed + ", " + "centers = " + GasolinaState.numero_centros + ", " + "gas stations = " + GasolinaState.numero_gasolineras + ", Successor function type" + opcio + ".csv"; 
+                    String filename = "EXPERIMENT 3 seed = " + seed + ", " + "centers = " + GasolinaState.numero_centros + ", " + "gas stations = " + GasolinaState.numero_gasolineras + ", Successor function type" + opcio + ".csv"; 
                     FileWriter fw = new FileWriter(filename, true); 
                     BufferedWriter bw = new BufferedWriter(fw);
                     PrintWriter pw = new PrintWriter(bw); 
