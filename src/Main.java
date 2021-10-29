@@ -104,10 +104,10 @@ public class Main {
                 GasolinaState.tipus_heuristica = input.nextInt(); 
     
                 if (operation == 1) {
-                    long timeStart = System.currentTimeMillis();
+                    long timeStart = System.nanoTime(); 
                     GasolinaHillClimbingSearch(state);
-                    long timeEstimated = System.currentTimeMillis() - timeStart; 
-                    System.out.println("Execution Time: " + (timeEstimated/1000.0) + " seconds");
+                    double timeEstimated = (System.nanoTime() - timeStart) / 1000000000.0;
+                    System.out.println("Execution Time: " + (timeEstimated) + " seconds");
                 }
     
                 else if (operation == 2) {
@@ -124,10 +124,10 @@ public class Main {
                     k = input.nextInt(); 
                     System.out.println("Choose the parameter 'lamb'. Type a number (double) ");
                     lamb = input.nextDouble(); 
-                    long timeStart = System.currentTimeMillis();
+                    long timeStart = System.nanoTime(); 
                     GasolinaSimulatedAnnealingSearch(state, steps, stiter, k, lamb);
-                    long timeEstimated = System.currentTimeMillis() - timeStart; 
-                    System.out.println("Execution Time: " + (timeEstimated/1000.0) + " seconds");
+                    double timeEstimated = (System.nanoTime() - timeStart) / 1000000000.0;
+                    System.out.println("Execution Time: " + (timeEstimated) + " seconds");
                 }
     
                 else if (operation == 3) {
@@ -145,9 +145,9 @@ public class Main {
                                 for (int k_current = 1; k_current <= 21; k_current += 2) {
                                     for (double lamb_current = 0.000000001; lamb_current <= 0.01; lamb_current *= 10) {
                                         GasolinaState state_current = new GasolinaState(state);
-                                        long timeStart = System.currentTimeMillis();
+                                        long timeStart = System.nanoTime(); 
                                         int profits = GasolinaSimulatedAnnealingSearch_not_print_return_profits(state_current, steps_current, stiter_current, k_current, lamb_current);
-                                        double timeEstimated = (System.currentTimeMillis() - timeStart) / 1000.0;
+                                        double timeEstimated = (System.nanoTime() - timeStart) / 1000000000.0;
                                         pw.println(steps_current + "," + stiter_current + "," + k_current + "," + lamb_current + "," + profits + "," + timeEstimated);
                                         System.out.println("Steps = " + steps_current + ", " + "stiter = " + stiter_current + ", " + "k = " + k_current + ", " + "lamb = " + lamb_current + " DONE");
                                     }
