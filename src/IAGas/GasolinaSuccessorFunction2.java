@@ -20,6 +20,7 @@ public class GasolinaSuccessorFunction2 implements SuccessorFunction {
 
         //Es tria de forma random si es fa add o swap. LLavors es tria de forma random un camio i gas (o camio i camio)
         //Si no es pot realitzar loperacio desitjada per aquests dos, llavors es tria un altre camio i gasolinera randoms per fer aquesta operacio. 
+        /* Opcio 1 no la considerem, ja que dona bucle infinit
         if (opcio == 1) {
             int tipus_metode = randInt(0, 100); // 0 = add    1 = swap
             double addsDisp = board.addsDisponibles();
@@ -29,6 +30,7 @@ public class GasolinaSuccessorFunction2 implements SuccessorFunction {
             if (totalDisp != 0) percentatgeAdds = (addsDisp/(addsDisp + swapsDisp)) * 100;
             else percentatgeAdds = 50;
             int camio_1;
+        */
 
             if (tipus_metode < percentatgeAdds) {
                 int gasolinera; 
