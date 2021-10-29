@@ -111,7 +111,7 @@ public class Main {
                 }
     
                 else if (operation == 2) {
-                    System.out.println("Choose one of the four options with which the successor function is able to choose new states with S annealing: 1, 2, 3 o or 4 ");
+                    System.out.println("Choose one of the three options with which the successor function is able to choose new states with S annealing: 2, 3 o or 4 ");
                     int opcio = input.nextInt(); 
                     GasolinaState.opcio_s_annealing = opcio;  
                     int steps, stiter, k; 
@@ -138,7 +138,7 @@ public class Main {
     
                     pw.println("Opcio" + "Steps" + "," + "stiter" + "," + "k" + "," + "lamb" + "," + "profits" + "," + "execution time");
     
-                    for (int opcio = 1; opcio <= 4; ++opcio) {
+                    for (int opcio = 2; opcio <= 4; ++opcio) {
                         GasolinaState.opcio_s_annealing = opcio;
                         for (int steps_current = 6000; steps_current <= 9000; steps_current += 500) {
                             for (int stiter_current = 1; stiter_current <= 101; stiter_current += 20) {
