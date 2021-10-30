@@ -1,4 +1,4 @@
-Seed,numCamions,camionsxGasolinera,Cost,Beneficis,executionTime
+Seed,numCamions,camions/centre,km recorreguts,Beneficis,executionTime
 1234,10,1,1071,97318,0.759047284
 1234,5,2,2049,95302,0.559327094
 1234,3,3,2400,84560,0.358253233
