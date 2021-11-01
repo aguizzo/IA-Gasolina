@@ -6,5 +6,9 @@
         "exclude": [
             "lib/extracted Gasolina/Gasolina.jar"
         ]
-    }
+    },
+    "java.project.sourcePaths": [
+        "src",
+        ""
+    ]
 }
