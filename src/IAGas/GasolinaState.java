@@ -622,7 +622,7 @@ public class GasolinaState {
     //About distancias
     private int calcularDistancia(Distribucion d, Gasolinera g) {
         int distancia = abs(d.getCoordX() - g.getCoordX());
-        distancia += abs(d.getCoordY() - d.getCoordY());
+        distancia += abs(d.getCoordY() - g.getCoordY());
         return distancia;
     }
 
