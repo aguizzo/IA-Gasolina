@@ -1,4 +1,5 @@
-seed,numCentres,camionsxCentre,Cost,Beneficis,executionTime
+big one,,,,,
+seed,numCentres,camionsxCentre,Km totals,Beneficis,executionTime
 1234,10,1,0,94988,0.622891618
 1234,5,2,0,92412,0.485859723
 1234,2,5,0,85560,0.402172378
@@ -43,3 +44,12 @@ seed,numCentres,camionsxCentre,Cost,Beneficis,executionTime
 83789,5,2,0,93504,0.54526025
 83789,2,5,0,83496,0.475696616
 83789,1,10,0,83920,0.429305205
+,,,,,
+,,,,,
+,,,,,
+default seed,,,,,
+seed,numCentres,camionsxCentre,Km totals,Beneficis,executionTime
+1234,10,1,0,94988,0.622891618
+1234,5,2,0,92412,0.485859723
+1234,2,5,0,85560,0.402172378
+1234,1,10,0,83424,0.35887299
